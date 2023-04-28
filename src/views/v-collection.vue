@@ -80,7 +80,9 @@ export default {
     max-height: 40px;
     border-radius: 5px;
     background-color: var(--color-button);
-    color: var(--color-background-light);
+    color: var(--color-font);
     font-weight: bold;
+    text-align: center;
+    
 }
 </style>
