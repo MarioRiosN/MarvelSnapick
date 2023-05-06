@@ -54,7 +54,7 @@ export default {
 .c-text-field:hover {
   outline-width: 2px;
   outline-style: solid;
-  outline-color: var(--color-button-hover);
+  outline-color: var(--color-button-dark);
 }
 
 .c-text-field:focus-within {
