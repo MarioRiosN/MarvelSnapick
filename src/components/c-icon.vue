@@ -48,7 +48,7 @@
 
 <style>
 .c-icon__svg{
-  fill:var(--color-button);
+  fill: var(--color-button-light);
   cursor:pointer;
   transition: all ease 0.3s;
 }
