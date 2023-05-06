@@ -21,3 +21,5 @@ import './styles/mainStyles.scss'
   color: var(--color-font);
 }
 </style>
+
+
