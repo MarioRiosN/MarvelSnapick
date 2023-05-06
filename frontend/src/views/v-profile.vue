@@ -6,7 +6,7 @@
                     <c-user :innerText="userLogged"></c-user>
                 </template>
                 <template #buttonProfile>
-                    <c-button class="v-profile__button--menu" innerText="MENÚ"></c-button>
+                    <c-button class="v-profile__button--menu" @click="goMenu" innerText="MENÚ"></c-button>
                 </template>
             </c-header>
         </template>
@@ -16,7 +16,7 @@
         <template #button>
         <c-button class="v-profile__button--option" innerText="CAMBIAR NOMBRE"></c-button>
         <c-button class="v-profile__button--option" innerText="CAMBIAR CONTRASEÑA"></c-button>
-        <c-button class="v-profile__button--option" innerText="COLECCIÓN"></c-button>
+        <c-button class="v-profile__button--option" @click="goColeccion" innerText="COLECCIÓN"></c-button>
         </template>
     </l-options>
 </template>
@@ -43,6 +43,14 @@ export default {
     methods: {
         async loadUser() {
             this.userLogged = userStore().userLogged;
+        },
+
+        goMenu(){
+            this.$router.push({name:'menu'})
+        },
+
+        goColeccion(){
+            this.$router.push({name: 'collection'})
         }
     },
     created() {

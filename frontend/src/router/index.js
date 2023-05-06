@@ -25,6 +25,11 @@ const router = createRouter({
       component: () => import('../views/v-collection.vue')
     },
     {
+      path: '/menu',
+      name:'menu',
+      component: () => import('../views/v-menu.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       name:'default',
       component: () => import('../views/v-login.vue')
