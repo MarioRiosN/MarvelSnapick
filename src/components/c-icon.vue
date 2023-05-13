@@ -1,45 +1,45 @@
 <template>
-    <div class="c-icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="c-icon__svg"
-          :width="width"
-          :height="height"
-          :viewBox="viewBox"
-        >
-          <path :d="svgPath"></path>
-        </svg>
-    </div>
+  <div class="c-icon">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="c-icon__svg"
+      :width="width"
+      :height="height"
+      :viewBox="viewBox"
+    >
+      <path :d="svgPath"></path>
+    </svg>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'CIcon',
-    data(){
-      return {
-        src:''
-      }
-    },
+export default {
+  name: 'CIcon',
+  data() {
+    return {
+      src: ''
+    }
+  },
   props: {
     iconName: {
-      type: String,
-    },
+      type: String
+    }
   },
-  computed:{
-    width({src}){
-      return src.width
+  computed: {
+    width({ src }) {
+      return src.width || '24'
     },
-    height({src}){
-      return src.height
+    height({ src }) {
+      return src.height || '24'
     },
-    viewBox({width, height}){
+    viewBox({ width, height }) {
       return `0 0 ${width} ${height}`
     },
-    svgPath({src}){
+    svgPath({ src }) {
       return src.svgPath
     }
   },
-  async created(){
+  async created() {
     const iconData = await import(`../assets/icons/${this.iconName}.js`)
     this.src = { ...iconData }
   }
@@ -47,12 +47,12 @@
 </script>
 
 <style>
-.c-icon__svg{
+.c-icon__svg {
   fill: var(--color-button-light);
-  cursor:pointer;
+  cursor: pointer;
   transition: all ease 0.3s;
 }
-.c-icon__svg:hover{
-    transform: scale(1.1);
-  }
+.c-icon__svg:hover {
+  transform: scale(1.1);
+}
 </style>

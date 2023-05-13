@@ -1,5 +1,8 @@
 <template>
-    <span class="c-user" :innerText="innerText"></span>
+    <div class="c-user">
+        <span :innerText="innerText"></span>
+        <slot v-if="$slots.icon" name="icon"></slot>
+    </div>
 </template>
 
 <script>
@@ -7,9 +10,9 @@ export default {
     name: 'CUser',
 
     props: {
-        innerText:{
-            type:String,
-            default:''
+        innerText: {
+            type: String,
+            default: ''
         }
     }
 }
@@ -17,9 +20,12 @@ export default {
 
 <style>
 .c-user {
+    display: flex;
     font-weight: bold;
+    gap: 5px;
     width: 150px;
     text-transform: uppercase;
-    font-size: larger;
+    font-size: x-large;
+    
 }
 </style>

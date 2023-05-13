@@ -3,7 +3,11 @@
         <template #header>
             <c-header>
                 <template #user>
-                    <c-user :innerText="userLogged"></c-user>
+                    <c-user :innerText="userLogged">
+                        <template #icon>
+                            <c-icon iconName="logout" @click="doLogout" />
+                        </template>
+                    </c-user>
                 </template>
                 <template #buttonProfile>
                     <c-button class="v-profile__button--menu" @click="goPlace('menu')" innerText="MENÚ"></c-button>
@@ -29,6 +33,7 @@
 import LOptions from '../layouts/l-options.vue'
 import CHeader from '../components/c-header.vue'
 import CUser from '../components/c-user.vue'
+import CIcon from '../components/c-icon.vue'
 import CButton from '../components/c-button.vue'
 import { userStore } from '../stores/user'
 
@@ -38,6 +43,7 @@ export default {
         CHeader,
         CUser,
         CButton,
+        CIcon,
     },
     data() {
         return {
@@ -56,6 +62,14 @@ export default {
         },
         goPlace(place) {
             this.$router.push({ name: place });
+        },
+        async doLogout() {
+            const doLogout = await userStore().logout()
+            if (doLogout) {
+                this.$router.push({ name: 'login' })
+            } else {
+                this.sendError()
+            }
         },
     },
     created() {
@@ -80,6 +94,6 @@ export default {
     border-radius: 10px;
     width: 20%;
     font-weight: bold;
-    font-size:x-large;
+    font-size: x-large;
 }
 </style>

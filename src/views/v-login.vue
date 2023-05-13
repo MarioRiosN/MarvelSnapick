@@ -1,8 +1,7 @@
 <template>
   <l-centered>
     <template #header>
-      <c-header>
-      </c-header>
+      <c-header> </c-header>
     </template>
     <template #title>
       <h1>INICIAR SESIÓN</h1>
@@ -11,21 +10,11 @@
       <div class="v-login" v-if="msg !== undefined">
         <span class="v-login--msg">{{ msg }}</span>
       </div>
-      <c-text-field 
-        id="username_input"
-        placeholder="Usuario"
-        v-model="username" />
-      <c-text-field 
-        id="password_input"
-        placeholder="Contraseña"
-        :type="type"
-        v-model="password">
-          <template #icon>
-            <c-icon
-              iconName="eye"
-              @click="showPassword"         
-            />
-          </template>
+      <c-text-field id="username_input" placeholder="Usuario" v-model="username" />
+      <c-text-field id="password_input" placeholder="Contraseña" :type="type" v-model="password">
+        <template #icon>
+          <c-icon iconName="eye" @click="showPassword" />
+        </template>
       </c-text-field>
       <div class="v-login">
         <span class="v-login--error" v-if="errorVisibility">{{ errorMessage }}</span>
@@ -63,13 +52,13 @@ export default {
       password: '',
       errorVisibility: false,
       errorMessage: 'Credenciales Incorrectas!!!',
-      type: 'password',
+      type: 'password'
     }
   },
-  props:{
-    msg:{
+  props: {
+    msg: {
       type: String,
-      required: false,
+      required: false
     }
   },
   methods: {
@@ -102,13 +91,13 @@ export default {
     goRegister() {
       this.$router.push({ name: 'register' })
     },
-    showPassword(){
-      if(this.type==='password'){
-        this.type='text';
-      }else{
-        this.type='password';
+    showPassword() {
+      if (this.type === 'password') {
+        this.type = 'text'
+      } else {
+        this.type = 'password'
       }
     }
-  },
+  }
 }
 </script>

@@ -8,63 +8,68 @@ const router = createRouter({
       path: '/:msg?',
       name: 'login',
       component: () => import('../views/v-login.vue'),
-      props: route=>({
+      props: route => ({
         msg: route.params.msg,
       }),
     },
     {
       path: '/registro',
-      name:'register',
+      name: 'register',
       component: () => import('../views/v-register.vue')
     },
     {
-      path:'/perfil/:msg?',
-      name:'profile',
+      path: '/perfil/:msg?',
+      name: 'profile',
       component: () => import('../views/v-profile.vue'),
-      props: route=>({
+      props: route => ({
         msg: route.params.msg,
       }),
     },
     {
       path: '/perfil/cambiar-nombre',
-      name:'rename',
+      name: 'rename',
       component: () => import('../views/v-rename.vue')
     },
     {
       path: '/perfil/cambiar-contraseña',
-      name:'repassword',
+      name: 'repassword',
       component: () => import('../views/v-repassword.vue')
     },
     {
       path: '/perfil/coleccion',
-      name:'collection',
+      name: 'collection',
       component: () => import('../views/v-collection.vue')
     },
     {
       path: '/menu',
-      name:'menu',
+      name: 'menu',
       component: () => import('../views/v-menu.vue')
     },
     {
+      path: '/menu/arena',
+      name: 'arena',
+      component: () => import('../views/v-arena.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
-      name:'default',
+      name: 'default',
       component: () => import('../views/v-login.vue')
     }
-    
+
   ]
 })
 
-const routesFree=['login','register']
+const routesFree = ['login', 'register']
 
 router.beforeEach((to, from, next) => {
   if (to.name === 'unknown') {
-    return next({name:'login'})
+    return next({ name: 'login' })
   }
-  if(!routesFree.includes(to.name) && !userStore().isLogged){
-    return next({name:'login'})
+  if (!routesFree.includes(to.name) && !userStore().isLogged) {
+    return next({ name: 'login' })
   }
   next()
-  
+
 })
 
 export default router

@@ -3,7 +3,11 @@
         <template #header>
             <c-header>
                 <template #user>
-                    <c-user :innerText="userLogged"></c-user>
+                    <c-user :innerText="userLogged">
+                        <template #icon>
+                            <c-icon iconName="logout" @click="doLogout" />
+                        </template>
+                    </c-user>
                 </template>
                 <template #buttonProfile>
                     <c-button class="v-collection__button--profile" @click="goProfile" innerText="PERFIL"></c-button>
@@ -27,6 +31,7 @@
 import LCentered from '../layouts/l-centered.vue'
 import CHeader from '../components/c-header.vue'
 import CUser from '../components/c-user.vue'
+import CIcon from '../components/c-icon.vue'
 import CButton from '../components/c-button.vue'
 import CCardsImage from '../components/c-cards-image.vue'
 import { userStore } from '../stores/user'
@@ -39,7 +44,8 @@ export default {
         CButton,
         CHeader,
         CUser,
-        CCardsImage
+        CCardsImage,
+        CIcon,
     },
     data() {
         return {
@@ -65,7 +71,16 @@ export default {
 
         goProfile(){
             this.$router.push({name:'profile'})
-        }
+        },
+        async doLogout() {
+            const doLogout = await userStore().logout()
+            if (doLogout) {
+                this.$router.push({ name: 'login' })
+            } else {
+                this.sendError()
+            }
+        },
+
     },
     created() {
         this.loadCards();

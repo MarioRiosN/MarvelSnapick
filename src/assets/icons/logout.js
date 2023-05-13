@@ -1,6 +1,8 @@
 const name = 'logout'
-const height = 24
+const height = 26
 const width = 24
-const svgPath= 'M15 16.5V19C15 20.1046 14.1046 21 13 21H6C4.89543 21 4 20.1046 4 19V5C4 3.89543 4.89543 3 6 3H13C14.1046 3 15 3.89543 15 5V8.0625M11 12H21M21 12L18.5 9.5M21 12L18.5 14.5'
+const svgPath = 'M15,24H0V2h15v8h-2V4H2v18h11v-6h2V24z M18.4,18.7L17,17.3l3.3-3.3H5v-2h15.3L17,8.7l1.4-1.4L24,13L18.4,18.7z'
 
-export {name, height, width, svgPath}
+export { name, height, width, svgPath }
+
+

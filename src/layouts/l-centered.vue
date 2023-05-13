@@ -16,6 +16,9 @@
       <div class="l-centered__button">
         <slot name="button"></slot>
       </div>
+      <div class="l-centered__cardsArena">
+        <slot name="cardsArena"></slot>
+      </div>
     </div>
   </section>
 </template>
@@ -88,4 +91,18 @@ export default {
 ::-webkit-scrollbar {
     display: none;
 }
+
+.l-centered__cardsArena {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  word-wrap: break-word;
+  text-align: center;
+}
+.l-centered__cardsArena img{
+  height: 300px;
+} 
+.l-centered__cardsArena h1{
+  width: 1000px;
+} 
 </style>

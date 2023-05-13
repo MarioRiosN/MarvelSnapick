@@ -3,7 +3,11 @@
         <template #header>
             <c-header>
                 <template #user>
-                    <c-user :innerText="userLogged"></c-user>
+                    <c-user :innerText="userLogged">
+                        <template #icon>
+                            <c-icon iconName="logout" @click="doLogout" />
+                        </template>
+                    </c-user>
                 </template>
                 <template #buttonProfile>
                     <c-button class="v-profile__button--menu" @click="goProfile" innerText="PERFIL"></c-button>
@@ -16,7 +20,7 @@
         <template #button>
         <c-button class="v-profile__button--option" innerText="MODO SEALED"></c-button>
         <c-button class="v-profile__button--option" innerText="MODO DRAFT"></c-button>
-        <c-button class="v-profile__button--option" innerText="MODO ARENA"></c-button>
+        <c-button class="v-profile__button--option" @click="goPlace('arena')" innerText="MODO ARENA"></c-button>
         </template>
     </l-options>
 </template>
@@ -25,6 +29,7 @@
 import LOptions from '../layouts/l-options.vue'
 import CHeader from '../components/c-header.vue'
 import CUser from '../components/c-user.vue'
+import CIcon from '../components/c-icon.vue'
 import CButton from '../components/c-button.vue'
 import { userStore } from '../stores/user'
 
@@ -34,6 +39,7 @@ export default {
         CHeader,
         CUser,
         CButton,
+        CIcon,
     },
     data() {
         return {
@@ -46,7 +52,18 @@ export default {
         },
         goProfile(){
             this.$router.push({name:'profile'})
-        }
+        },
+        goPlace(place) {
+            this.$router.push({ name: place });
+        },
+        async doLogout() {
+            const doLogout = await userStore().logout()
+            if (doLogout) {
+                this.$router.push({ name: 'login' })
+            } else {
+                this.sendError()
+            }
+        },
     },
     created() {
         this.loadUser();

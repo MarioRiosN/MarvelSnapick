@@ -1,18 +1,21 @@
 <template>
   <l-centered>
     <template #header>
-      <c-header>
-      </c-header>
+      <c-header> </c-header>
     </template>
     <template #title>
       <h1>REGISTRO</h1>
     </template>
     <template #form>
       <c-text-field id="username_input" placeholder="Usuario" v-model="username" />
-      <c-text-field id="password_input" placeholder="Contraseña" :type="type" v-model="password" />
+      <c-text-field id="password_input" placeholder="Contraseña" :type="type" v-model="password">
+        <template #icon>
+          <c-icon iconName="eye" @click="showPassword" />
+        </template>
+      </c-text-field>
       <div class="v-register">
-          <span class="v-register--error" v-if="errorVisibility">{{ errorMessage }}</span>
-        </div>
+        <span class="v-register--error" v-if="errorVisibility">{{ errorMessage }}</span>
+      </div>
     </template>
     <template #button>
       <c-button @click="doRegister" innerText="CONFIRMAR"></c-button>
@@ -25,6 +28,7 @@
 import LCentered from '../layouts/l-centered.vue'
 import CHeader from '../components/c-header.vue'
 import CTextField from '../components/c-text-field.vue'
+import CIcon from '../components/c-icon.vue'
 import CButton from '../components/c-button.vue'
 import { userStore } from '../stores/user'
 
@@ -33,8 +37,9 @@ export default {
   components: {
     LCentered,
     CTextField,
+    CIcon,
     CButton,
-    CHeader,
+    CHeader
   },
   data() {
     return {
@@ -42,7 +47,7 @@ export default {
       password: '',
       errorVisibility: false,
       errorMessage: 'Nombre de Usuario no disponible!!!',
-      type: 'password',
+      type: 'password'
     }
   },
   methods: {
@@ -53,12 +58,11 @@ export default {
         const doRegister = await userStore().register({ username, password })
 
         if (doRegister) {
-          this.$router.push({ name: 'login', params:{msg: 'Usuario registrado con éxito'}})
+          this.$router.push({ name: 'login', params: { msg: 'Usuario registrado con éxito' } })
         } else {
           this.sendError()
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.log(error)
       }
     },
@@ -71,13 +75,14 @@ export default {
       setTimeout(() => {
         this.errorVisibility = false
       }, 5000)
-    }
-    /* showPassword(){
-      this.type='password';
-      if(this.type==='password'){
-        this.type='text';
+    },
+    showPassword() {
+      if (this.type === 'password') {
+        this.type = 'text'
+      } else {
+        this.type = 'password'
       }
-    } */
+    }
   }
 }
 </script>
