@@ -18,7 +18,8 @@
             <h1>MODO ARENA</h1>
         </template>
             <template #cardsArena>
-                <div id="arenaMode">
+                <div id="arenaMode" v-if="this.arenaCards.length != 0 || this.pick > 12">
+                    <h1>Pick: {{ this.pick }}/12</h1>
                     <img id="pick1" :key="this.arenaCards.at(this.arenaCards.length-1).CardDefId" :src="this.arenaCards.at(this.arenaCards.length-1).Img" 
                     :alt="this.arenaCards.at(this.arenaCards.length-1).CardDefId" @click="makePick('pick1')">
                     <img id="pick2" :key="this.arenaCards.at(this.arenaCards.length-2).CardDefId" :src="this.arenaCards.at(this.arenaCards.length-2).Img" 
@@ -96,7 +97,8 @@ export default {
             this.arenaCards.pop()
             this.arenaCards.pop()
             this.arenaCards.pop()
-            if(this.arenaCards.length == 0){
+            this.pick = this.pick + 1;
+            if(this.pick > 12){
                 let link = "{'Name':'test','Cards':[{'CardDefId':'"+this.arenaDeck.pop().CardDefId+"'},{'CardDefId':'"+this.arenaDeck.pop().CardDefId+"'},{'CardDefId':'"+this.arenaDeck.pop().CardDefId+"'},{'CardDefId':'"+this.arenaDeck.pop().CardDefId+"'},{'CardDefId':'"+this.arenaDeck.pop().CardDefId+"'},{'CardDefId':'"+this.arenaDeck.pop().CardDefId+"'},{'CardDefId':'"+this.arenaDeck.pop().CardDefId+"'},{'CardDefId':'"+this.arenaDeck.pop().CardDefId+"'},{'CardDefId':'"+this.arenaDeck.pop().CardDefId+"'},{'CardDefId':'"+this.arenaDeck.pop().CardDefId+"'},{'CardDefId':'"+this.arenaDeck.pop().CardDefId+"'},{'CardDefId':'"+this.arenaDeck.pop().CardDefId+"'}]}";
                 let nuevolink = window.btoa(link);
                 document.getElementById("arenaMode").innerHTML="<h1>Código del mazo listo:</h1><br><h1>"+nuevolink+"</h1>";
