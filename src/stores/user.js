@@ -41,7 +41,7 @@ export const userStore = defineStore('user', {
     },
 
     async rename({ oldUsername, newUsername }) {
-      const method = 'POST'
+      const method = 'PUT'
       const url = '/user/rename'
       const payload = { oldUsername, newUsername }
       return apiStore()
@@ -57,7 +57,7 @@ export const userStore = defineStore('user', {
     },
 
     async repassword({ oldPassword, newPassword }) {
-      const method = 'POST'
+      const method = 'PUT'
       const url = '/user/repassword'
       const payload = { oldPassword, newPassword }
       return apiStore()

@@ -88,9 +88,6 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   width: 100%;
 }
-::-webkit-scrollbar {
-    display: none;
-}
 
 .l-centered__cardsArena {
   display: flex;
@@ -99,10 +96,14 @@ export default {
   word-wrap: break-word;
   text-align: center;
 }
-.l-centered__cardsArena img{
+.l-centered__cardsArena img {
   height: 300px;
-} 
-.l-centered__cardsArena h1{
+}
+.l-centered__cardsArena h1 {
   width: 1000px;
-} 
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
 </style>

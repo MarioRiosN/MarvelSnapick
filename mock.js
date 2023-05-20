@@ -77,7 +77,7 @@ app.post('/user/register', (req, res) => {
   })
 })
 
-app.post('/user/rename', (req, res) => {
+app.put('/user/rename', (req, res) => {
   const { oldUsername, newUsername } = req.body
   if (oldUsername === userLogged) {
     //busca en el array obtenido de la base de datos el objeto cuyo username coincida con oldUsername y lo cambia a newUsername
@@ -94,7 +94,7 @@ app.post('/user/rename', (req, res) => {
   }
 })
 
-app.post('/user/repassword', (req, res) => {
+app.put('/user/repassword', (req, res) => {
   const { oldPassword, newPassword } = req.body
   console.log(oldPassword, newPassword)
   getUsers((err, results) => {
