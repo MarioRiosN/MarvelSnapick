@@ -1,5 +1,5 @@
 <template>
-    <img class="c-cards-image" :src="src" :alt="alt">
+    <img class="c-cards-image" :src="src" :alt="alt" :have="have">
 </template>
 
 <script>
@@ -15,6 +15,10 @@ export default {
             type: String,
             default: ''
         },
+        have:{
+            type: String,
+            default: ''
+        }
     }
 }
 </script>
@@ -22,5 +26,8 @@ export default {
 <style>
 .c-cards-image {
     height: 200px;
+}
+.c-cards-image:hover{
+    cursor: pointer;
 }
 </style>

@@ -46,6 +46,11 @@ const router = createRouter({
       component: () => import('../views/v-menu.vue')
     },
     {
+      path: '/menu/sellado',
+      name: 'sealed',
+      component: () => import('../views/v-sealed.vue')
+    },
+    {
       path: '/menu/arena',
       name: 'arena',
       component: () => import('../views/v-arena.vue')

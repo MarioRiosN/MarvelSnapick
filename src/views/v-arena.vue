@@ -1,5 +1,5 @@
 <template>
-  <l-centered>
+  <l-game>
     <template #header>
       <c-header>
         <template #user>
@@ -17,22 +17,26 @@
     <template #title>
       <h1>MODO ARENA</h1>
     </template>
-    <template #cardsArena>
+    <template #button>
+            <c-button v-if="this.arenaCards.length == 0" @click="getCode" innerText="CÓDIGO DEL MAZO"></c-button>
+            <h2>{{ msg }}</h2>
+        </template>
+    <template #cards>
       <div v-if="this.arenaCards.length !== 0">
         <h1>Pick: {{ this.pick }}/12</h1>
-        <img
+        <c-cards-image
           id="pick1"
           :src="this.arenaCards.at(-1).Img"
           :alt="this.arenaCards.at(-1).CardDefId"
           @click="makePick('pick1')"
         />
-        <img
+        <c-cards-image
           id="pick2"
           :src="this.arenaCards.at(-2).Img"
           :alt="this.arenaCards.at(-2).CardDefId"
           @click="makePick('pick2')"
         />
-        <img
+        <c-cards-image
           id="pick3"
           :src="this.arenaCards.at(-3).Img"
           :alt="this.arenaCards.at(-3).CardDefId"
@@ -40,14 +44,17 @@
         />
       </div>
       <div v-else>
-        <h1>{{ codigoMazo }}</h1>
+        <c-cards-image v-for="card in arenaDeck"
+        :key="card.CardDefId"
+        :src="card.Img"
+        :alt="card.CardDefId"/>
       </div>
     </template>
-  </l-centered>
+  </l-game>
 </template>
 
 <script>
-import LCentered from '../layouts/l-centered.vue'
+import LGame from '../layouts/l-game.vue'
 import CHeader from '../components/c-header.vue'
 import CUser from '../components/c-user.vue'
 import CIcon from '../components/c-icon.vue'
@@ -58,7 +65,7 @@ import { cardsStore } from '../stores/cards'
 
 export default {
   components: {
-    LCentered,
+    LGame,
     CButton,
     CHeader,
     CUser,
@@ -74,7 +81,8 @@ export default {
       userLogged: '',
       end: false,
       pick: 1,
-      codigoMazo: ''
+      codigoMazo: '',
+      msg:''
     }
   },
   methods: {
@@ -111,40 +119,37 @@ export default {
       this.arenaDeck.push(myObj)
       this.arenaCards.length = this.arenaCards.length - 3
       this.pick++
-      if (this.pick > 12) {
-        /* for (var i = 0; i < 12; i++) {
-          link += "{'CardDefId':'" + this.arenaDeck.pop().CardDefId + "'},"
-        }
-        link += ']}' */
-        let link =
+    },
+    getCode(){
+      let link =
           "{'Name':'test','Cards':[{'CardDefId':'" +
-          this.arenaDeck.pop().CardDefId +
+          this.arenaDeck[0].CardDefId +
           "'},{'CardDefId':'" +
-          this.arenaDeck.pop().CardDefId +
+          this.arenaDeck[1].CardDefId +
           "'},{'CardDefId':'" +
-          this.arenaDeck.pop().CardDefId +
+          this.arenaDeck[2].CardDefId +
           "'},{'CardDefId':'" +
-          this.arenaDeck.pop().CardDefId +
+          this.arenaDeck[3].CardDefId +
           "'},{'CardDefId':'" +
-          this.arenaDeck.pop().CardDefId +
+          this.arenaDeck[4].CardDefId +
           "'},{'CardDefId':'" +
-          this.arenaDeck.pop().CardDefId +
+          this.arenaDeck[5].CardDefId +
           "'},{'CardDefId':'" +
-          this.arenaDeck.pop().CardDefId +
+          this.arenaDeck[6].CardDefId +
           "'},{'CardDefId':'" +
-          this.arenaDeck.pop().CardDefId +
+          this.arenaDeck[7].CardDefId +
           "'},{'CardDefId':'" +
-          this.arenaDeck.pop().CardDefId +
+          this.arenaDeck[8].CardDefId +
           "'},{'CardDefId':'" +
-          this.arenaDeck.pop().CardDefId +
+          this.arenaDeck[9].CardDefId +
           "'},{'CardDefId':'" +
-          this.arenaDeck.pop().CardDefId +
+          this.arenaDeck[10].CardDefId +
           "'},{'CardDefId':'" +
-          this.arenaDeck.pop().CardDefId +
+          this.arenaDeck[11].CardDefId +
           "'}]}"
-        let codigo = window.btoa(link)
-        this.codigoMazo = 'Código del mazo listo: ' + codigo
-      }
+        this.codigoMazo = window.btoa(link)
+        navigator.clipboard.writeText(this.codigoMazo)
+        this.msg='Código copiado'
     },
     shuffleCards(array) {
       for (var i = array.length - 1; i > 0; i--) {
