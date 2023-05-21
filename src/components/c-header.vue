@@ -32,7 +32,7 @@ export default {
   left: 0;
   margin: auto;
   /* top: 0, left: 50% , transform: translate(-50%,0%); es otra forma de centrarlo*/
-  height: 120px;
+  height: 80px;
 }
 .c-header__button--wrapper {
   display: flex;

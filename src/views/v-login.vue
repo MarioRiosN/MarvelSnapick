@@ -74,10 +74,12 @@ export default {
       const { username, password } = this
 
       const doLogin = await userStore().login({ username, password })
-
-      if (doLogin) {
-        this.$router.push({ name: 'collection' })
-      } else {
+      console.log(doLogin)
+      if (doLogin === 'admin') {
+        this.$router.push({ name: 'admin' })
+      } else if(doLogin === 'user'){
+        this.$router.push({ name: 'menu' })
+      }else{
         this.sendError()
       }
     },

@@ -47,10 +47,12 @@ app.post('/user/login', (req, res) => {
     if (err) {
       res.send(err)
     } else if (
-      results.some((user) => user['username'] === username && user['password'] === password)
-    ) {
+      results.some((user) => user['username'] === username && user['password'] === password && user['rol'] === 'admin')
+    ){
       userLogged = username
-      res.send(true)
+      res.send('admin')
+    } else if(results.some((user) => user['username'] === username && user['password'] === password && user['rol'] === 'user')){
+      res.send('user')
     } else {
       res.status(404).send({ data: 'User not found!' })
     }
