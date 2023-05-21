@@ -58,7 +58,12 @@ export default {
         const doRegister = await userStore().register({ username, password })
 
         if (doRegister) {
-          this.$router.push({ name: 'login', params: { msg: 'Usuario registrado con éxito' } })
+          const doLogin = await userStore().login({ username, password })
+          if (doLogin) {
+            this.$router.push({ name: 'collection' })
+          } else {
+            this.sendError()
+          }
         } else {
           this.sendError()
         }
