@@ -17,19 +17,19 @@
                 <c-text-field id="password_input" placeholder="Contraseña" v-model="password"/>
                 <c-text-field id="rol_input" placeholder="Rol" v-model="rol"/>
             </div>
-            <div class="v-admin--users">
+            <div v-for="user in users" class="v-admin--users">
                 <span style="width: 22%;">
-                    Mario
+                    {{ user.username }}
                 </span>
                 <span style="width: 23%;">
-                    Ríos
+                    {{ user.password }}
                 </span>
                 <span style="width: 22%;">
-                    user
+                    {{ user.rol }}
                 </span>
                 <div class="v-admin--users__button" style="width: 33%;">
                     <c-button innerText="Editar"></c-button>
-                    <c-button innerText="Borrar"></c-button>
+                    <c-button innerText="Borrar" @click="deleteUser(user.username)"></c-button>
                 </div>
             </div>
         </template>
@@ -71,14 +71,37 @@ export default{
     },
     data(){
         return{
+            users: [],
             username: '',
             password: '',
             rol: ''
         }
     },
     methods:{
+        async loadUsers() {
+            try {
+                const useUserStore = userStore()
+                this.users = await useUserStore.fetchUsers()
+                this.fetched = true
+            } catch (e) {
+                console.log(e)
+                this.error = true
+            }
+        },
         async loadUser() {
             this.userLogged = userStore().userLogged
+        },
+        async deleteUser(username) {
+            const { userId } = username
+            try {
+                const useUserStore = userStore()
+                await useUserStore.deleteUser({ userId })
+                this.fetched = true
+            } catch (e) {
+                console.log(e)
+                this.error = true
+            }
+            this.loadUsers()
         },
         async doLogout() {
             const doLogout = await userStore().logout()
@@ -90,6 +113,7 @@ export default{
         }
     },
     created() {
+        this.loadUsers()
         this.loadUser()
     }
 }

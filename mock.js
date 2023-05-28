@@ -1,7 +1,7 @@
 import express from 'express'
 import corss from 'cors'
 import { getCards, getCard } from './src/models/CardModel.js'
-import { getUsers, setUser, updateUsername, updatePassword } from './src/models/UserModel.js'
+import { getUsers, setUser, updateUsername, updatePassword, getUsersAsAdmin } from './src/models/UserModel.js'
 const app = express()
 const port = 8081
 let userLogged = ''
@@ -124,6 +124,37 @@ app.get('/cards', (req, res) => {
       res.send(err)
     } else {
       res.send(results)
+    }
+  })
+})
+
+app.get('/user/users', (req, res) => {
+  getUsersAsAdmin((err, results) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(results)
+    }
+})
+})
+
+app.delete('/user/delete', (req, res) => {
+  const { userId } = req.body
+  getUsers((err, results) => {
+    if (err) {
+      res.send(err)
+    } else if (
+      results.some((user) => user['username'] === userId)
+    ) {
+      deleteUser({ userId }, (err, results) => {
+        if (err) {
+          res.send(err)
+        } else {
+          res.send(true)
+        }
+      })
+    } else {
+      res.status(404).send({ data: 'User not found!' })
     }
   })
 })

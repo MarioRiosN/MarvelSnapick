@@ -104,10 +104,6 @@ export default {
     async loadUser() {
       this.userLogged = userStore().userLogged
     },
-    /* async startMode() {
-      this.pick = 1
-      this.end = false
-    }, */
     goMenu() {
       this.$router.push({ name: 'menu' })
     },
