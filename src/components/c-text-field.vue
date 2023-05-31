@@ -41,7 +41,7 @@ export default {
 .c-text-field {
   display: flex;
   flex-direction: row;
-  gap:5px;
+  gap: 5px;
   background-color: var(--color-input);
   color: var(--color-font);
   border-radius: 10px;
@@ -77,7 +77,7 @@ export default {
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,

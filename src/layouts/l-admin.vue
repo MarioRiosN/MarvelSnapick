@@ -1,5 +1,5 @@
 <template>
-    <section class="l-admin">
+  <section class="l-admin">
     <div class="l-admin__header">
       <slot name="header"></slot>
     </div>
@@ -45,16 +45,16 @@ export default {
   overflow-x: scroll;
 }
 
-.l-admin--users{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
+.l-admin--users {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 }
 
-.l-admin--games{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
+.l-admin--games {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 }
 
 ::-webkit-scrollbar {

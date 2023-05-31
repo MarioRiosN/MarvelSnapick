@@ -1,7 +1,13 @@
 import express from 'express'
 import corss from 'cors'
 import { getCards, getCard } from './src/models/CardModel.js'
-import { getUsers, setUser, updateUsername, updatePassword, getUsersAsAdmin } from './src/models/UserModel.js'
+import {
+  getUsers,
+  setUser,
+  updateUsername,
+  updatePassword,
+  getUsersAsAdmin
+} from './src/models/UserModel.js'
 const app = express()
 const port = 8081
 let userLogged = ''
@@ -47,11 +53,19 @@ app.post('/user/login', (req, res) => {
     if (err) {
       res.send(err)
     } else if (
-      results.some((user) => user['username'] === username && user['password'] === password && user['rol'] === 'admin')
-    ){
+      results.some(
+        (user) =>
+          user['username'] === username && user['password'] === password && user['rol'] === 'admin'
+      )
+    ) {
       userLogged = username
       res.send('admin')
-    } else if(results.some((user) => user['username'] === username && user['password'] === password && user['rol'] === 'user')){
+    } else if (
+      results.some(
+        (user) =>
+          user['username'] === username && user['password'] === password && user['rol'] === 'user'
+      )
+    ) {
       res.send('user')
     } else {
       res.status(404).send({ data: 'User not found!' })
@@ -135,7 +149,7 @@ app.get('/user/users', (req, res) => {
     } else {
       res.send(results)
     }
-})
+  })
 })
 
 app.delete('/user/delete', (req, res) => {
@@ -143,9 +157,7 @@ app.delete('/user/delete', (req, res) => {
   getUsers((err, results) => {
     if (err) {
       res.send(err)
-    } else if (
-      results.some((user) => user['username'] === userId)
-    ) {
+    } else if (results.some((user) => user['username'] === userId)) {
       deleteUser({ userId }, (err, results) => {
         if (err) {
           res.send(err)

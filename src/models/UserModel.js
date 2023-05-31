@@ -66,16 +66,12 @@ export const updatePassword = ({ oldPassword, newPassword }, result) => {
 }
 
 export const deleteUser = ({ username }, result) => {
-  db.query(
-    'DELETE FROM users WHERE username = ?',
-    [username],
-    (err, res) => {
-      if (err) {
-        console.log(err)
-        result(err, null)
-      } else {
-        result(null, res)
-      }
+  db.query('DELETE FROM users WHERE username = ?', [username], (err, res) => {
+    if (err) {
+      console.log(err)
+      result(err, null)
+    } else {
+      result(null, res)
     }
-  )
+  })
 }

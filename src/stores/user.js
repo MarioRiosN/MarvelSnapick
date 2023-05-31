@@ -8,20 +8,21 @@ export const userStore = defineStore('user', {
   }),
 
   actions: {
-    async fetchUsers(){
-      const method ='GET'
+    async fetchUsers() {
+      const method = 'GET'
       const url = '/user/users'
       return apiStore()
-          .doRequest({url, method})
-          .then(res => {
-              this.cards=res
-              return res
-          })
-          .catch((err) => {
-              console.log(err)
-              return false
-          })
+        .doRequest({ url, method })
+        .then((res) => {
+          this.cards = res
+          return res
+        })
+        .catch((err) => {
+          console.log(err)
+          return false
+        })
     },
+
     async login({ username, password }) {
       const method = 'POST'
       const url = '/user/login'
@@ -99,6 +100,7 @@ export const userStore = defineStore('user', {
           return false
         })
     },
+
     async logout() {
       this.isLogged = false
       this.userLogged = ''

@@ -85,6 +85,7 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   width: 100%;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }

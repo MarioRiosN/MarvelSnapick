@@ -18,9 +18,13 @@
       <h1>MODO ARENA</h1>
     </template>
     <template #button>
-            <c-button v-if="this.arenaCards.length == 0" @click="getCode" innerText="CÓDIGO DEL MAZO"></c-button>
-            <h2>{{ msg }}</h2>
-        </template>
+      <c-button
+        v-if="this.arenaCards.length === 0"
+        @click="getCode"
+        innerText="CÓDIGO DEL MAZO"
+      ></c-button>
+      <h2>{{ msg }}</h2>
+    </template>
     <template #cards>
       <div v-if="this.arenaCards.length !== 0">
         <h1>Pick: {{ this.pick }}/12</h1>
@@ -44,10 +48,12 @@
         />
       </div>
       <div v-else>
-        <c-cards-image v-for="card in arenaDeck"
-        :key="card.CardDefId"
-        :src="card.Img"
-        :alt="card.CardDefId"/>
+        <c-cards-image
+          v-for="card in arenaDeck"
+          :key="card.CardDefId"
+          :src="card.Img"
+          :alt="card.CardDefId"
+        />
       </div>
     </template>
   </l-game>
@@ -82,7 +88,7 @@ export default {
       end: false,
       pick: 1,
       codigoMazo: '',
-      msg:''
+      msg: ''
     }
   },
   methods: {
@@ -116,36 +122,36 @@ export default {
       this.arenaCards.length = this.arenaCards.length - 3
       this.pick++
     },
-    getCode(){
+    getCode() {
       let link =
-          "{'Name':'test','Cards':[{'CardDefId':'" +
-          this.arenaDeck[0].CardDefId +
-          "'},{'CardDefId':'" +
-          this.arenaDeck[1].CardDefId +
-          "'},{'CardDefId':'" +
-          this.arenaDeck[2].CardDefId +
-          "'},{'CardDefId':'" +
-          this.arenaDeck[3].CardDefId +
-          "'},{'CardDefId':'" +
-          this.arenaDeck[4].CardDefId +
-          "'},{'CardDefId':'" +
-          this.arenaDeck[5].CardDefId +
-          "'},{'CardDefId':'" +
-          this.arenaDeck[6].CardDefId +
-          "'},{'CardDefId':'" +
-          this.arenaDeck[7].CardDefId +
-          "'},{'CardDefId':'" +
-          this.arenaDeck[8].CardDefId +
-          "'},{'CardDefId':'" +
-          this.arenaDeck[9].CardDefId +
-          "'},{'CardDefId':'" +
-          this.arenaDeck[10].CardDefId +
-          "'},{'CardDefId':'" +
-          this.arenaDeck[11].CardDefId +
-          "'}]}"
-        this.codigoMazo = window.btoa(link)
-        navigator.clipboard.writeText(this.codigoMazo)
-        this.msg='Código copiado'
+        "{'Name':'test','Cards':[{'CardDefId':'" +
+        this.arenaDeck[0].CardDefId +
+        "'},{'CardDefId':'" +
+        this.arenaDeck[1].CardDefId +
+        "'},{'CardDefId':'" +
+        this.arenaDeck[2].CardDefId +
+        "'},{'CardDefId':'" +
+        this.arenaDeck[3].CardDefId +
+        "'},{'CardDefId':'" +
+        this.arenaDeck[4].CardDefId +
+        "'},{'CardDefId':'" +
+        this.arenaDeck[5].CardDefId +
+        "'},{'CardDefId':'" +
+        this.arenaDeck[6].CardDefId +
+        "'},{'CardDefId':'" +
+        this.arenaDeck[7].CardDefId +
+        "'},{'CardDefId':'" +
+        this.arenaDeck[8].CardDefId +
+        "'},{'CardDefId':'" +
+        this.arenaDeck[9].CardDefId +
+        "'},{'CardDefId':'" +
+        this.arenaDeck[10].CardDefId +
+        "'},{'CardDefId':'" +
+        this.arenaDeck[11].CardDefId +
+        "'}]}"
+      this.codigoMazo = window.btoa(link)
+      navigator.clipboard.writeText(this.codigoMazo)
+      this.msg = 'Código copiado'
     },
     shuffleCards(array) {
       for (var i = array.length - 1; i > 0; i--) {

@@ -56,7 +56,7 @@ const router = createRouter({
       component: () => import('../views/v-arena.vue')
     },
     {
-      path: '/admin',
+      path: '/admin/',
       name: 'admin',
       component: () => import('../views/v-admin.vue')
     },
