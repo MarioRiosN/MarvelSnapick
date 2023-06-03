@@ -13,8 +13,7 @@ export const userStore = defineStore('user', {
       const url = '/user/users'
       return apiStore()
         .doRequest({ url, method })
-        .then((res) => {
-          this.cards = res
+        .then(res => {
           return res
         })
         .catch((err) => {
@@ -55,10 +54,10 @@ export const userStore = defineStore('user', {
         })
     },
 
-    async rename({ oldUsername, newUsername }) {
+    async rename({userLogged, oldUsername, newUsername }) {
       const method = 'PUT'
       const url = '/user/rename'
-      const payload = { oldUsername, newUsername }
+      const payload = { userLogged, oldUsername, newUsername }
       return apiStore()
         .doRequest({ method, url, payload })
         .then((res) => {
@@ -71,16 +70,31 @@ export const userStore = defineStore('user', {
         })
     },
 
-    async repassword({ oldPassword, newPassword }) {
+    async repassword({userLogged, oldPassword, newPassword }) {
       const method = 'PUT'
       const url = '/user/repassword'
-      const payload = { oldPassword, newPassword }
+      const payload = {userLogged,oldPassword, newPassword }
       return apiStore()
         .doRequest({ method, url, payload })
         .then((res) => {
           return res
         })
         .catch((error) => {
+          console.log(error)
+          return false
+        })
+    },
+
+    async rerol({username,rol}){
+      const method='PUT'
+      const url = '/user/rerol'
+      const payload = {username,rol}
+      return apiStore()
+        .doRequest({method,url,payload})
+        .then((res) => {
+          return res
+        })
+        .catch((error) =>{
           console.log(error)
           return false
         })

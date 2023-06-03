@@ -12,7 +12,7 @@ export const getUsers = (result) => {
   })
 }
 
-export const getUsersAsAdmin = (result) => {
+/* export const getUsersAsAdmin = (result) => {
   db.query('SELECT * FROM users WHERE rol = "user"', (err, res) => {
     if (err) {
       console.log(err)
@@ -22,7 +22,7 @@ export const getUsersAsAdmin = (result) => {
       result(null, res)
     }
   })
-}
+} */
 
 export const setUser = ({ username, password }, result) => {
   db.query('INSERT INTO users SET? ', [{ username, password }], (err, res) => {
@@ -54,6 +54,21 @@ export const updatePassword = ({ oldPassword, newPassword }, result) => {
   db.query(
     'UPDATE users SET password = ? WHERE password= ?',
     [newPassword, oldPassword],
+    (err, res) => {
+      if (err) {
+        console.log(err)
+        result(err, null)
+      } else {
+        result(null, res)
+      }
+    }
+  )
+}
+
+export const updateRol = ({ username, rol }, result) => {
+  db.query(
+    'UPDATE users SET rol = ? WHERE username= ?',
+    [rol, username],
     (err, res) => {
       if (err) {
         console.log(err)

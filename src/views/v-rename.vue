@@ -39,16 +39,20 @@ export default {
     return {
       oldUsername: '',
       newUsername: '',
+      userLogged:'',
       errorVisibility: false,
       errorMessage: 'El antiguo nombre no coincide!!!'
     }
   },
   methods: {
+    async loadUser() {
+      this.userLogged = userStore().userLogged
+    },
     async doRename() {
       try {
-        const { oldUsername, newUsername } = this
+        const { userLogged, oldUsername, newUsername } = this
 
-        const doRename = await userStore().rename({ oldUsername, newUsername })
+        const doRename = await userStore().rename({userLogged, oldUsername, newUsername })
 
         if (doRename) {
           this.$router.push({
@@ -78,6 +82,9 @@ export default {
             this.type='text';
           }
         } */
+  },
+  created() {
+    this.loadUser()
   }
 }
 </script>

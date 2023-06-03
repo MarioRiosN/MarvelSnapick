@@ -44,11 +44,14 @@ export default {
     }
   },
   methods: {
+    async loadUser() {
+      this.userLogged = userStore().userLogged
+    },
     async doRepassword() {
       try {
-        const { oldPassword, newPassword } = this
+        const { userLogged, oldPassword, newPassword } = this
 
-        const doRepassword = await userStore().repassword({ oldPassword, newPassword })
+        const doRepassword = await userStore().repassword({userLogged, oldPassword, newPassword })
 
         if (doRepassword) {
           this.$router.push({
@@ -78,6 +81,9 @@ export default {
             this.type='text';
           }
         } */
+  },
+  created() {
+    this.loadUser()
   }
 }
 </script>

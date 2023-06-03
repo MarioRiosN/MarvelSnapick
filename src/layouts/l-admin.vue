@@ -7,8 +7,8 @@
       <div class="l-admin--users">
         <slot name="users"></slot>
       </div>
-      <div class="l-admin--games">
-        <slot name="games"></slot>
+      <div class="l-admin--cards">
+        <slot name="cards"></slot>
       </div>
     </div>
   </section>
@@ -38,7 +38,6 @@ export default {
 .l-admin__grid {
   display: flex;
   flex-direction: row;
-  align-items: center;
   height: 90%;
   width: 100%;
   gap: 10px;
@@ -51,7 +50,7 @@ export default {
   width: 50%;
 }
 
-.l-admin--games {
+.l-admin--cards {
   display: flex;
   flex-direction: column;
   width: 50%;

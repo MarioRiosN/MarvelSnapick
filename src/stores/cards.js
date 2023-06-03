@@ -20,6 +20,52 @@ export const cardsStore = defineStore('cards', {
           console.log(err)
           return false
         })
-    }
+    },
+
+    async addCard({CardDefId, series, Img}){
+      const method ='POST'
+      const url='/cards/addCard'
+      const payload={CardDefId, series, Img}
+      return apiStore()
+      .doRequest({ method, url, payload })
+      .then((res) => {
+        return res
+      })
+      .catch((error) => {
+        console.log(error)
+        return false
+      })
+    },
+
+    async deleteCard({ CardDefId }) {
+      const method = 'DELETE'
+      const url = '/cards/deleteCard'
+      const payload = { CardDefId }
+      return apiStore()
+        .doRequest({ method, url, payload })
+        .then((res) => {
+          return res
+        })
+        .catch((error) => {
+          console.log(error)
+          return false
+        })
+    },
+
+    async editSeries({ CardDefId, newSeries }) {
+      const method = 'PUT'
+      const url = '/cards/editSeries'
+      const payload = { CardDefId, newSeries }
+      return apiStore()
+        .doRequest({ method, url, payload })
+        .then((res) => {
+          return res
+        })
+        .catch((error) => {
+          console.log(error)
+          return false
+        })
+    },
+
   }
 })

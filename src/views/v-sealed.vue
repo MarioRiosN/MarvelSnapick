@@ -218,11 +218,11 @@ export default {
   max-width: 80px;
   max-height: 40px;
   border-radius: 5px;
-  background-color: var(--color-button);
-  color: var(--color-background-light);
   font-weight: bold;
+  text-align: center;
   display: flex;
   justify-content: center;
+  font-size: medium;
 }
 
 .notHave {

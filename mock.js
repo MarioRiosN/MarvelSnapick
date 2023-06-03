@@ -1,16 +1,22 @@
 import express from 'express'
 import corss from 'cors'
-import { getCards, getCard } from './src/models/CardModel.js'
+import { 
+  getCards,
+  getCard,
+  setCard,
+  deleteCard,
+  updateSeries,
+} from './src/models/CardModel.js'
 import {
   getUsers,
   setUser,
   updateUsername,
   updatePassword,
-  getUsersAsAdmin
+  updateRol,
+  deleteUser
 } from './src/models/UserModel.js'
 const app = express()
 const port = 8081
-let userLogged = ''
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
@@ -58,7 +64,6 @@ app.post('/user/login', (req, res) => {
           user['username'] === username && user['password'] === password && user['rol'] === 'admin'
       )
     ) {
-      userLogged = username
       res.send('admin')
     } else if (
       results.some(
@@ -94,14 +99,14 @@ app.post('/user/register', (req, res) => {
 })
 
 app.put('/user/rename', (req, res) => {
-  const { oldUsername, newUsername } = req.body
+  console.log('estoy en el mock rename')
+  const { userLogged, oldUsername, newUsername } = req.body
   if (oldUsername === userLogged) {
     //busca en el array obtenido de la base de datos el objeto cuyo username coincida con oldUsername y lo cambia a newUsername
     updateUsername({ oldUsername, newUsername }, (err, results) => {
       if (err) {
         res.send(err)
       } else {
-        userLogged = newUsername
         res.send(true)
       }
     })
@@ -111,8 +116,7 @@ app.put('/user/rename', (req, res) => {
 })
 
 app.put('/user/repassword', (req, res) => {
-  const { oldPassword, newPassword } = req.body
-  console.log(oldPassword, newPassword)
+  const { userLogged, oldPassword, newPassword } = req.body
   getUsers((err, results) => {
     if (err) {
       res.send(err)
@@ -131,6 +135,43 @@ app.put('/user/repassword', (req, res) => {
     }
   })
 })
+app.get('/user/users', (req, res) => {
+  getUsers((err, results) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(results)
+    }
+  })
+})
+app.put('/user/rerol', (req,res)=>{
+  var { username, rol } = req.body
+  console.log(rol, 'rol actual')
+  if(rol==='admin'){
+    rol='user'
+  } else{
+    rol='admin'
+  }
+  console.log(rol,'rol cambiado')
+  updateRol({username,rol},(err,results)=>{
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(true)
+    }
+  })
+})
+
+app.delete('/user/delete', (req, res) => {
+  const { username } = req.body
+    deleteUser({ username }, (err, results) => {
+      if (err) {
+        res.send(err)
+      } else {
+        res.send(true)
+      }
+  })
+})
 
 app.get('/cards', (req, res) => {
   getCards((err, results) => {
@@ -141,32 +182,33 @@ app.get('/cards', (req, res) => {
     }
   })
 })
-
-app.get('/user/users', (req, res) => {
-  getUsersAsAdmin((err, results) => {
+app.post('/cards/addCard', (req,res) =>{
+  const {CardDefId, series, Img} =req.body
+  setCard({CardDefId, series, Img}, (err, results) => {
     if (err) {
       res.send(err)
     } else {
-      res.send(results)
+      res.send(true)
     }
   })
 })
-
-app.delete('/user/delete', (req, res) => {
-  const { userId } = req.body
-  getUsers((err, results) => {
+app.delete('/cards/deleteCard', (req, res) => {
+  const { CardDefId } = req.body
+  deleteCard({ CardDefId }, (err, results) => {
     if (err) {
       res.send(err)
-    } else if (results.some((user) => user['username'] === userId)) {
-      deleteUser({ userId }, (err, results) => {
-        if (err) {
-          res.send(err)
-        } else {
-          res.send(true)
-        }
-      })
     } else {
-      res.status(404).send({ data: 'User not found!' })
+      res.send(true)
+    }
+  })
+})
+app.put('/cards/editSeries', (req,res) =>{
+  const {CardDefId, newSeries} = req.body
+  updateSeries({CardDefId, newSeries}, (err,results) =>{
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(true)
     }
   })
 })

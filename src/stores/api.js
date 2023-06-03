@@ -29,7 +29,7 @@ export const apiStore = defineStore('api', {
             return resolve(res.data)
           })
           .catch((error) => {
-            return reject(error.response.data)
+            return reject(error)
           })
       })
     }

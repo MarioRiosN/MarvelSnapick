@@ -35,7 +35,7 @@ export default {
 
 .l-game__header {
   width: 100%;
-  height: 15%;
+  height: 20%;
 }
 
 .l-game__title {
