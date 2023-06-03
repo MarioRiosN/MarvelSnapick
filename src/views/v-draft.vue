@@ -24,6 +24,7 @@
       <template #button>
         <c-button
           class="v-draft__button--option"
+          @click="createDraft()"
           innerText="Crear Draft"
         ></c-button>
         <div class="v-draft__button--option">
@@ -45,6 +46,7 @@ import CIcon from '../components/c-icon.vue'
 import CTextField from '../components/c-text-field.vue'
 import CButton from '../components/c-button.vue'
 import { userStore } from '../stores/user'
+import {gamesStore} from '../stores/games'
 
 export default {
   components: {
@@ -76,6 +78,14 @@ export default {
         this.sendError()
       }
     },
+    async createDraft(){
+        try{
+            const {userLogged}=this
+            const createDraft = await gamesStore().createDraft({userLogged})
+        } catch(e){
+            console.log(e)
+        }
+    }
 },
 created() {
     this.loadUser()

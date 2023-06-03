@@ -3,10 +3,8 @@ import db from '../config/database.js'
 export const getUsers = (result) => {
   db.query('SELECT * FROM users', (err, res) => {
     if (err) {
-      console.log(err)
       result(err, null)
     } else {
-      console.log(res)
       result(null, res)
     }
   })

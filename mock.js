@@ -15,6 +15,9 @@ import {
   updateRol,
   deleteUser
 } from './src/models/UserModel.js'
+import{
+  createDraft,
+} from './src/models/GameModel.js'
 const app = express()
 const port = 8081
 
@@ -173,6 +176,7 @@ app.delete('/user/delete', (req, res) => {
   })
 })
 
+
 app.get('/cards', (req, res) => {
   getCards((err, results) => {
     if (err) {
@@ -205,6 +209,18 @@ app.delete('/cards/deleteCard', (req, res) => {
 app.put('/cards/editSeries', (req,res) =>{
   const {CardDefId, newSeries} = req.body
   updateSeries({CardDefId, newSeries}, (err,results) =>{
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(true)
+    }
+  })
+})
+
+
+app.post('/games/createDraft', (req,res) =>{
+  const{userLogged}=req.body
+  createDraft({userLogged}, (err,results) =>{
     if (err) {
       res.send(err)
     } else {
