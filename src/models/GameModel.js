@@ -8,4 +8,35 @@ export const createDraft = ({userLogged}, result) => {
         result(null, res)
       }
     })
-  }
+}
+
+export const addPlayer= ({userLogged,jugador,sobre1,sobre2,sobre3,mazo}, result) => {
+  db.query('INSERT INTO`'+userLogged+'`SET?',[{jugador,sobre1,sobre2,sobre3,mazo}], (err, res) => {
+    if (err) {
+      result(err, null)
+    } else {
+      result(null, res)
+    }
+  })
+}
+
+export const countPlayers=({nombrePartida},result) =>{
+  db.query('SELECT COUNT(*) FROM `'+nombrePartida+'`',(err,res)=>{
+    if (err) {
+      result(err, null)
+    } else {
+      result(null, res)
+    }
+  })
+}
+
+export const getCardsGame = ({userLogged,jugador},result) => {
+  db.query('SELECT sobre1,sobre2,sobre3 FROM `'+userLogged+'` WHERE jugador<'+jugador, (err, res) => {
+    if (err) {
+      console.log(err)
+      result(err, null)
+    } else {
+      result(null, res)
+    }
+  })
+}

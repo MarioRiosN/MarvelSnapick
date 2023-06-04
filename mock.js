@@ -17,6 +17,9 @@ import {
 } from './src/models/UserModel.js'
 import{
   createDraft,
+  addPlayer,
+  countPlayers,
+  getCardsGame
 } from './src/models/GameModel.js'
 const app = express()
 const port = 8081
@@ -219,7 +222,7 @@ app.put('/cards/editSeries', (req,res) =>{
 
 
 app.post('/games/createDraft', (req,res) =>{
-  const{userLogged}=req.body
+  const {userLogged}=req.body
   createDraft({userLogged}, (err,results) =>{
     if (err) {
       res.send(err)
@@ -228,3 +231,128 @@ app.post('/games/createDraft', (req,res) =>{
     }
   })
 })
+app.post('/games/addFirstPlayer', (req,res) =>{
+  const {userLogged}=req.body
+  var cards=[]
+  var cardsPlayer=[]
+  var jugador=1
+  var sobre1=[]
+  var sobre2=[]
+  var sobre3=[]
+  const mazo =''
+  getCards((err, results) => {
+    if (err) {
+      res.send(err)
+    } else {
+      for(i=0;i<results.length;i++){
+        cards.push(results[i].CardDefId)
+      }
+      console.log(cards,'esto es array cards')
+      for (var i = cards.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1))
+        var temp = cards[i]
+        cards[i] = cards[j]
+        cards[j] = temp
+      }
+      for (var k = 0; k < 18; k++) {
+        cardsPlayer.push(cards.pop())
+      }
+      for (var l = 0; l < 6; l++) {
+        sobre1.push(cardsPlayer.pop())
+        sobre2.push(cardsPlayer.pop())
+        sobre3.push(cardsPlayer.pop())
+      }
+      sobre1=sobre1.toString()
+      sobre2=sobre2.toString()
+      sobre3=sobre3.toString()
+      console.log(userLogged,sobre1, sobre2, sobre3, mazo)
+      addPlayer({userLogged,jugador,sobre1,sobre2,sobre3,mazo}, (err,results) =>{
+        if (err) {
+          res.send(err)
+        } else {
+          res.send(true)
+        }
+      })
+    }
+  }) 
+})
+app.post('/games/countPlayers', (req,res) =>{
+  const {nombrePartida}=req.body
+  countPlayers({nombrePartida}, (err,results) =>{
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(results)
+    }
+  })
+})
+app.post('/games/addPlayer', (req,res) =>{
+  const {nombrePartida, jugador}=req.body
+  var cards=[]
+  var cardsToSplit=''
+  var cardsOthers=[]
+  var cardsPlayer=[]
+  var sobre1=[]
+  var sobre2=[]
+  var sobre3=[]
+  const mazo =''
+  var userLogged=nombrePartida
+  getCards((err, results) => {
+    if (err) {
+      res.send(err)
+    } else {
+      for(var i=0;i<results.length;i++){
+        cards.push(results[i].CardDefId)
+      }
+      console.log(jugador, 'jugador')
+      getCardsGame({userLogged,jugador},(err,results) =>{
+        if (err) {
+          console.log('ERROOOOOOOR')
+          res.send(err)
+        } else {
+          if(jugador===2){
+            cardsToSplit=Object.values(results[0])[0]+','+Object.values(results[0])[1]+','+Object.values(results[0])[2]
+            }else if(jugador==3){
+              cardsToSplit=Object.values(results[0])[0]+','+Object.values(results[0])[1]+','+Object.values(results[0])[2]+','+Object.values(results[1])[0]+','+Object.values(results[1])[1]+','+Object.values(results[1])[2]
+              }else{
+                cardsToSplit=Object.values(results[0])[0]+','+Object.values(results[0])[1]+','+Object.values(results[0])[2]+','+Object.values(results[1])[0]+','+Object.values(results[1])[1]+','+Object.values(results[1])[2]+','+Object.values(results[2])[0]+','+Object.values(results[2])[1]+','+Object.values(results[2])[2]
+              }
+          console.log(cardsToSplit, 'cartas para splitear')
+          cardsOthers=cardsToSplit.split(',')
+          console.log(cardsOthers, 'cardsOthers')
+          for(var i=0;i<cardsOthers.length;i++){
+              cards.splice(cards.indexOf(cardsOthers[i]),1)
+          }
+          console.log(cards, 'todas las cartas')
+          for (var i = cards.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1))
+            var temp = cards[i]
+            cards[i] = cards[j]
+            cards[j] = temp
+          }
+          for (var k = 0; k < 18; k++) {
+            cardsPlayer.push(cards.pop())
+          }
+          console.log(cardsPlayer, 'ya se han elegido las 18 cartas')
+          for (var l = 0; l < 6; l++) {
+            sobre1.push(cardsPlayer.pop())
+            sobre2.push(cardsPlayer.pop())
+            sobre3.push(cardsPlayer.pop())
+          }
+          sobre1=sobre1.toString()
+          sobre2=sobre2.toString()
+          sobre3=sobre3.toString()
+          console.log(userLogged,sobre1, sobre2, sobre3, mazo)
+          addPlayer({userLogged,jugador,sobre1,sobre2,sobre3,mazo}, (err,results) =>{
+            if (err) {
+              res.send(err)
+            } else {
+              res.send(true)
+            }
+          })
+        }
+      })
+    }
+  }) 
+})
+

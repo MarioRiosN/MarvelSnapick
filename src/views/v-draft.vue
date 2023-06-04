@@ -20,6 +20,9 @@
       </template>
       <template #title>
         <h1>DRAFT</h1>
+        <div v-if="msgVisibility">
+          <span>{{ msg }}</span>
+        </div>
       </template>
       <template #button>
         <c-button
@@ -30,6 +33,7 @@
         <div class="v-draft__button--option">
             <c-button
                 class="v-draft__button--option2"
+                @click="joinDraft()"
                 innerText="Unirse Draft"
             ></c-button>
             <c-text-field placeholder="Nombre Partida" v-model="nombrePartida"></c-text-field>
@@ -60,7 +64,9 @@ export default {
   data() {
     return {
       userLogged: '',
-      nombrePartida:''
+      nombrePartida:'',
+      msg:'No puedes unirte a la partida',
+      msgVisibility:false
     }
   },
   methods: {
@@ -82,9 +88,27 @@ export default {
         try{
             const {userLogged}=this
             const createDraft = await gamesStore().createDraft({userLogged})
+            const idPlayer = await gamesStore().addFirstPlayer({userLogged})
         } catch(e){
             console.log(e)
         }
+    },
+    async joinDraft(){
+      const {nombrePartida}=this
+      const numPlayers = await gamesStore().countPlayers({nombrePartida})
+      if(numPlayers[0]!== undefined && Object.values(numPlayers[0])[0]<=3){
+        const jugador=Object.values(numPlayers[0])[0]+1
+        try{
+            const addPlayer = await gamesStore().addPlayer({nombrePartida,jugador})
+        } catch(e){
+            console.log(e)
+        }
+      } else{
+        this.msgVisibility=true
+          setTimeout(() => {
+            this.msgVisibility=false
+          }, 5000)
+      }
     }
 },
 created() {
