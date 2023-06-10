@@ -6,6 +6,9 @@
     <div l-game__title>
       <slot name="title"></slot>
     </div>
+    <div l-game__msg>
+      <slot name="msg"></slot>
+    </div>
     <div class="l-game__grid">
       <div class="l-game__button">
         <slot name="button"></slot>
@@ -39,6 +42,16 @@ export default {
 }
 
 .l-game__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+  font-size: larger;
+  font-weight: bold;
+}
+
+.l-game__msg{
   display: flex;
   justify-content: center;
   align-items: center;

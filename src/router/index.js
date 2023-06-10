@@ -5,12 +5,9 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/:msg?',
+      path: '/',
       name: 'login',
       component: () => import('../views/v-login.vue'),
-      props: (route) => ({
-        msg: route.params.msg
-      })
     },
     {
       path: '/registro',
@@ -64,6 +61,15 @@ const router = createRouter({
       path: '/draft',
       name: 'draft',
       component: () => import('../views/v-draft.vue')
+    },
+    {
+      path: '/draft/Game/:nombrePartida?/:jugador?',
+      name: 'draftGame',
+      component: () => import('../views/v-draftGame.vue'),
+      props: (route) => ({
+        nombrePartida:route.params.nombrePartida,
+        jugador:route.params.jugador
+      })
     },
     {
       path: '/:pathMatch(.*)*',

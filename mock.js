@@ -247,7 +247,6 @@ app.post('/games/addFirstPlayer', (req,res) =>{
       for(i=0;i<results.length;i++){
         cards.push(results[i].CardDefId)
       }
-      console.log(cards,'esto es array cards')
       for (var i = cards.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1))
         var temp = cards[i]
@@ -265,7 +264,6 @@ app.post('/games/addFirstPlayer', (req,res) =>{
       sobre1=sobre1.toString()
       sobre2=sobre2.toString()
       sobre3=sobre3.toString()
-      console.log(userLogged,sobre1, sobre2, sobre3, mazo)
       addPlayer({userLogged,jugador,sobre1,sobre2,sobre3,mazo}, (err,results) =>{
         if (err) {
           res.send(err)
@@ -288,6 +286,7 @@ app.post('/games/countPlayers', (req,res) =>{
 })
 app.post('/games/addPlayer', (req,res) =>{
   const {nombrePartida, jugador}=req.body
+  console.log({nombrePartida,jugador})
   var cards=[]
   var cardsToSplit=''
   var cardsOthers=[]
@@ -304,10 +303,8 @@ app.post('/games/addPlayer', (req,res) =>{
       for(var i=0;i<results.length;i++){
         cards.push(results[i].CardDefId)
       }
-      console.log(jugador, 'jugador')
       getCardsGame({userLogged,jugador},(err,results) =>{
         if (err) {
-          console.log('ERROOOOOOOR')
           res.send(err)
         } else {
           if(jugador===2){
@@ -317,13 +314,10 @@ app.post('/games/addPlayer', (req,res) =>{
               }else{
                 cardsToSplit=Object.values(results[0])[0]+','+Object.values(results[0])[1]+','+Object.values(results[0])[2]+','+Object.values(results[1])[0]+','+Object.values(results[1])[1]+','+Object.values(results[1])[2]+','+Object.values(results[2])[0]+','+Object.values(results[2])[1]+','+Object.values(results[2])[2]
               }
-          console.log(cardsToSplit, 'cartas para splitear')
           cardsOthers=cardsToSplit.split(',')
-          console.log(cardsOthers, 'cardsOthers')
           for(var i=0;i<cardsOthers.length;i++){
               cards.splice(cards.indexOf(cardsOthers[i]),1)
           }
-          console.log(cards, 'todas las cartas')
           for (var i = cards.length - 1; i > 0; i--) {
             var j = Math.floor(Math.random() * (i + 1))
             var temp = cards[i]
@@ -333,7 +327,6 @@ app.post('/games/addPlayer', (req,res) =>{
           for (var k = 0; k < 18; k++) {
             cardsPlayer.push(cards.pop())
           }
-          console.log(cardsPlayer, 'ya se han elegido las 18 cartas')
           for (var l = 0; l < 6; l++) {
             sobre1.push(cardsPlayer.pop())
             sobre2.push(cardsPlayer.pop())
@@ -342,7 +335,6 @@ app.post('/games/addPlayer', (req,res) =>{
           sobre1=sobre1.toString()
           sobre2=sobre2.toString()
           sobre3=sobre3.toString()
-          console.log(userLogged,sobre1, sobre2, sobre3, mazo)
           addPlayer({userLogged,jugador,sobre1,sobre2,sobre3,mazo}, (err,results) =>{
             if (err) {
               res.send(err)

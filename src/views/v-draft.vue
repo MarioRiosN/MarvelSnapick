@@ -66,7 +66,8 @@ export default {
       userLogged: '',
       nombrePartida:'',
       msg:'No puedes unirte a la partida',
-      msgVisibility:false
+      msgVisibility:false,
+      numJugador:'',
     }
   },
   methods: {
@@ -89,6 +90,15 @@ export default {
             const {userLogged}=this
             const createDraft = await gamesStore().createDraft({userLogged})
             const idPlayer = await gamesStore().addFirstPlayer({userLogged})
+            this.numJugador=1
+            console.log('jugador ',this.numJugador,'nombre Partida ',this.userLogged)
+            console.log(createDraft,idPlayer)
+            if(idPlayer && createDraft){
+              this.$router.push({
+              name: 'draftGame',
+              params: {nombrePartida: this.userLogged,jugador: this.numJugador}
+              })
+            }
         } catch(e){
             console.log(e)
         }
@@ -98,8 +108,15 @@ export default {
       const numPlayers = await gamesStore().countPlayers({nombrePartida})
       if(numPlayers[0]!== undefined && Object.values(numPlayers[0])[0]<=3){
         const jugador=Object.values(numPlayers[0])[0]+1
+        console.log(jugador, 'esto es jugador, debería ser 2 o 3 o 4')
         try{
             const addPlayer = await gamesStore().addPlayer({nombrePartida,jugador})
+            if(addPlayer){
+              this.$router.push({
+              name: 'draftGame',
+              params: {nombrePartida: this.nombrePartida,jugador: jugador}
+              })
+            }
         } catch(e){
             console.log(e)
         }
@@ -110,10 +127,10 @@ export default {
           }, 5000)
       }
     }
-},
-created() {
+  },
+  created() {
     this.loadUser()
-}
+  }
 }
 </script>
 
