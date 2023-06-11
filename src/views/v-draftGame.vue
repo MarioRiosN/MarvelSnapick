@@ -112,15 +112,7 @@ export default {
             if(this.players==4){
                 clearInterval(this.timerCheck)
                 this.timerTurn = setInterval(() => {
-                    this.updateDatabase()
-                  if(this.pick<19){
-                    this.fillPlayerCards()
-                    this.fillCards()
-                  } else{
-                    console.log(this.draftMazo)
-                    clearInterval(this.timerTurn)
-                    this.getMazoFinal()
-                  }              
+                    this.startTurn() 
                 }, 7000)
             }
         },
@@ -206,6 +198,17 @@ export default {
             this.msg = 'El mazo debe contener 12 cartas'
           }
         },
+        async startTurn(){
+          await this.updateDatabase()
+            if(this.pick<19){
+              await this.fillPlayerCards()
+              await this.fillCards()
+            } else{
+              console.log(this.draftMazo)
+              clearInterval(this.timerTurn)
+              this.getMazoFinal()
+            }             
+        },
         async updateDatabase(){
           if(this.playerCards.indexOf(this.idPicked)!=-1){
             this.playerCards.splice(this.playerCards.indexOf(this.idPicked),1)
@@ -216,57 +219,77 @@ export default {
             console.log({nombrePartida,fillSobre,fillJugador,updatedCards}, 'estos son los args')
             const updatePlayer=await gamesStore().updatePlayer({nombrePartida,fillSobre,fillJugador,updatedCards})
             this.pick++
-            this.timerWait = setInterval(() => {
-              clearInterval(this.timerWait)
-            }, 5000)
+            if(this.pick<7){
+              this.sobre=1
+            }else if(this.pick<13){
+              this.sobre=2
+            }else{
+              this.sobre=3
+            }
           }
         },
         async fillPlayerCards(){
           switch(this.pick){
-            case 1: case 5:
+            case 1:
               if(this.jugador==1){
                 this.fillSobre='sobre1'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=6;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==2){
                 this.fillSobre='sobre1'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=6;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==3){
                 this.fillSobre='sobre1'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=6;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else{
                 this.fillSobre='sobre1'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=6;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }
               break;
-            case 2: case 6:
+            case 2:
               if(this.jugador==1){
                 this.fillSobre='sobre1'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=5;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==2){
                 this.fillSobre='sobre1'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=5;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==3){
                 this.fillSobre='sobre1'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=5;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else{
                 this.fillSobre='sobre1'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=5;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }
               break;
             case 3:
@@ -274,22 +297,30 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=4;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==2){
                 this.fillSobre='sobre1'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=4;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==3){
                 this.fillSobre='sobre1'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=4;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else{
                 this.fillSobre='sobre1'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=4;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }
               break;
             case 4:
@@ -297,68 +328,154 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=3;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==2){
                 this.fillSobre='sobre1'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=3;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==3){
                 this.fillSobre='sobre1'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=3;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else{
                 this.fillSobre='sobre1'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=3;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }
               break;
-            case 7: case 11:
+            case 5:
+              if(this.jugador==1){
+                this.fillSobre='sobre1'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=2;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else if(this.jugador==2){
+                this.fillSobre='sobre1'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=2;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else if(this.jugador==3){
+                this.fillSobre='sobre1'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=2;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else{
+                this.fillSobre='sobre1'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=2;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }
+              break;
+            case 6:
+              if(this.jugador==1){
+                this.fillSobre='sobre1'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=1;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else if(this.jugador==2){
+                this.fillSobre='sobre1'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=1;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else if(this.jugador==3){
+                this.fillSobre='sobre1'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=1;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else{
+                this.fillSobre='sobre1'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=1;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }
+              break;
+            case 7:
               if(this.jugador==1){
                 this.fillSobre='sobre2'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=6;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==2){
                 this.fillSobre='sobre2'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=6;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==3){
                 this.fillSobre='sobre2'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=6;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else{
                 this.fillSobre='sobre2'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=6;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }
               break;
-            case 8: case 12:
+            case 8:
               if(this.jugador==1){
                 this.fillSobre='sobre2'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=5;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==2){
                 this.fillSobre='sobre2'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=5;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==3){
                 this.fillSobre='sobre2'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=5;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else{
                 this.fillSobre='sobre2'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=5;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }
               break;
             case 9:
@@ -366,22 +483,30 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=4;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==2){
                 this.fillSobre='sobre2'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=4;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==3){
                 this.fillSobre='sobre2'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=4;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else{
                 this.fillSobre='sobre2'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=4;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }
               break;
             case 10:
@@ -389,68 +514,154 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=3;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==2){
                 this.fillSobre='sobre2'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=3;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==3){
                 this.fillSobre='sobre2'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=3;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else{
                 this.fillSobre='sobre2'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=3;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }
               break;
-            case 13: case 17:
+            case 11:
+              if(this.jugador==1){
+                this.fillSobre='sobre2'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=2;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else if(this.jugador==2){
+                this.fillSobre='sobre2'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=2;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else if(this.jugador==3){
+                this.fillSobre='sobre2'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=2;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else{
+                this.fillSobre='sobre2'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=2;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }
+              break;
+            case 12:
+              if(this.jugador==1){
+                this.fillSobre='sobre2'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=1;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else if(this.jugador==2){
+                this.fillSobre='sobre2'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=1;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else if(this.jugador==3){
+                this.fillSobre='sobre2'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=1;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else{
+                this.fillSobre='sobre2'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=1;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }
+              break;
+            case 13:
               if(this.jugador==1){
                 this.fillSobre='sobre3'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=6;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==2){
                 this.fillSobre='sobre3'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=6;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==3){
                 this.fillSobre='sobre3'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=6;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else{
                 this.fillSobre='sobre3'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=6;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }
               break;
-            case 14: case 18:
+            case 14:
               if(this.jugador==1){
                 this.fillSobre='sobre3'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=5;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==2){
                 this.fillSobre='sobre3'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=5;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==3){
                 this.fillSobre='sobre3'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=5;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else{
                 this.fillSobre='sobre3'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=5;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }
               break;
             case 15:
@@ -458,22 +669,30 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=4;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==2){
                 this.fillSobre='sobre3'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=4;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==3){
                 this.fillSobre='sobre3'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=4;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else{
                 this.fillSobre='sobre3'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=4;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }
               break;
             case 16:
@@ -481,22 +700,92 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=3;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==2){
                 this.fillSobre='sobre3'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=3;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else if(this.jugador==3){
                 this.fillSobre='sobre3'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=3;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }else{
                 this.fillSobre='sobre3'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                for(;this.playerCards.length!=3;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }
+              break;
+            case 17:
+              if(this.jugador==1){
+                this.fillSobre='sobre3'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=2;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else if(this.jugador==2){
+                this.fillSobre='sobre3'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=2;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else if(this.jugador==3){
+                this.fillSobre='sobre3'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=2;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else{
+                this.fillSobre='sobre3'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=2;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }
+              break;
+            case 18:
+              if(this.jugador==1){
+                this.fillSobre='sobre3'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=1;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else if(this.jugador==2){
+                this.fillSobre='sobre3'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=1;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else if(this.jugador==3){
+                this.fillSobre='sobre3'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=1;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
+              }else{
+                this.fillSobre='sobre3'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                for(;this.playerCards.length!=1;){
+                  this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+                }
               }
               break;
             default: console.log('estoy en default')
