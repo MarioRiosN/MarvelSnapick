@@ -36,7 +36,7 @@
                 @click="joinDraft()"
                 innerText="Unirse Draft"
             ></c-button>
-            <c-text-field placeholder="Nombre Partida" v-model="nombrePartida"></c-text-field>
+            <c-text-field class="v-draft__button--optionSearch" placeholder="Nombre Partida" v-model="nombrePartida"></c-text-field>
         </div>
       </template>
     </l-options>
@@ -135,7 +135,40 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-draft__button--menu {
+@media screen and (max-width: 650px) {
+  .v-draft__button--menu {
+  max-width: 80px;
+  max-height: 40px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-size: medium;
+}
+.v-draft__button--option {
+  height: 45%;
+  border-radius: 10px;
+  width: 100%;
+  font-weight: bold;
+  font-size: x-large;
+}
+.v-draft__button--option2 {
+  height: 80%;
+  border-radius: 10px;
+  width: 100%;
+  font-weight: bold;
+  font-size: x-large;
+}
+.v-draft__button--optionSearch{
+  height: 20%;
+  width: 100%;
+}
+}
+
+/* For Tablets */
+@media screen and (min-width: 650px) {
+  .v-draft__button--menu {
   max-width: 80px;
   max-height: 40px;
   border-radius: 5px;
@@ -153,11 +186,13 @@ export default {
   font-size: x-large;
 }
 .v-draft__button--option2 {
-  height: 100%;
+  height: 80%;
   border-radius: 10px;
   width: 100%;
   font-weight: bold;
   font-size: x-large;
 }
+}
+
 </style>
 

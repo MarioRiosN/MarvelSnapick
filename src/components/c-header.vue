@@ -3,7 +3,7 @@
     <slot v-if="$slots.user" name="user" />
     <img
       class="c-header__image"
-      src="https://lf19-fe-tos.bytedgame.com/obj/g-marketing-assets-va/2022_05_19_09_23_59/1643367095102_s1069673.png"
+      src="../assets/logo.png"
       alt="Marvel SnaPick"
     />
     <div class="c-header__button--wrapper" v-if="$slots.buttonMenu">
