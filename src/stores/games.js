@@ -90,5 +90,19 @@ export const gamesStore = defineStore('games', {
                     return false
                 })
         },
+        async dropTable({nombrePartida}){
+            const method ='DELETE'
+            const url ='/games/dropTable'
+            const payload={nombrePartida}
+            return apiStore()
+                .doRequest({url,method,payload})
+                .then((res) => {
+                    return res
+                })
+                .catch((err) => {
+                    console.log(err)
+                    return false
+                })
+        },
     }
 })

@@ -22,6 +22,7 @@ import{
   getCardsGame,
   getPlayerCards,
   updatePlayer,
+  dropTable
 } from './src/models/GameModel.js'
 const app = express()
 const port = 8081
@@ -376,6 +377,17 @@ app.post('/games/getPlayerCards', (req,res) =>{
 app.put('/games/updatePlayer', (req,res) =>{
   const {nombrePartida,fillSobre,fillJugador,updatedCards}=req.body
   updatePlayer({nombrePartida,fillSobre,fillJugador,updatedCards}, (err,results) =>{
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(true)
+    }
+  })
+})
+
+app.delete('/games/dropTable', (req,res) =>{
+  const {nombrePartida}=req.body
+  dropTable({nombrePartida}, (err,results) =>{
     if (err) {
       res.send(err)
     } else {

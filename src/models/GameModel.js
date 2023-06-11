@@ -63,3 +63,15 @@ export const updatePlayer = ({nombrePartida,fillSobre,fillJugador,updatedCards},
     }
   )
 }
+
+export const dropTable = ({nombrePartida}, result) => {
+  db.query('DROP TABLE `'+nombrePartida+'`',(err, res) => {
+      if (err) {
+        console.log(err)
+        result(err, null)
+      } else {
+        result(null, res)
+      }
+    }
+  )
+}

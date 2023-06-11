@@ -270,8 +270,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
-                this.playerCards=await gamesStore().getPlayerCa
-                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})rds({nombrePartida,fillSobre,fillJugador})
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -875,12 +874,15 @@ export default {
           }
         },
         async getMazoFinal(){
-          var {id}=this
+          var {id,nombrePartida}=this
           this.draftMazoFinal=[]
           for(var i=0;i<this.draftMazo.length;i++){
             id=this.draftMazo[i]
             var card=await cardsStore().getCard({id})
             this.draftMazoFinal.push(card[0])
+          }
+          if(this.jugador==1){
+            const dropTable = await gamesStore().dropTable({nombrePartida})
           }
         }
 
