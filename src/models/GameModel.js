@@ -40,3 +40,26 @@ export const getCardsGame = ({userLogged,jugador},result) => {
     }
   })
 }
+
+export const getPlayerCards = ({nombrePartida,fillSobre,fillJugador},result) => {
+  db.query('SELECT '+fillSobre+' FROM `'+nombrePartida+'` WHERE jugador='+fillJugador, (err, res) => {
+    if (err) {
+      console.log(err)
+      result(err, null)
+    } else {
+      result(null, res)
+    }
+  })
+}
+
+export const updatePlayer = ({nombrePartida,fillSobre,fillJugador,updatedCards}, result) => {
+  db.query('UPDATE `'+nombrePartida+'` SET '+fillSobre+'= ? WHERE jugador= ?',[updatedCards,fillJugador],(err, res) => {
+      if (err) {
+        console.log(err)
+        result(err, null)
+      } else {
+        result(null, res)
+      }
+    }
+  )
+}

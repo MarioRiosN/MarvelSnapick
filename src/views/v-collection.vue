@@ -66,6 +66,7 @@ export default {
       try {
         const useCardsStore = cardsStore()
         this.cards = await useCardsStore.fetchCards()
+        console.log(this.cards)
       } catch (e) {
         console.log(e)
         this.error = true

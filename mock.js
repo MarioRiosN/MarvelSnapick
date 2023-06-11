@@ -19,7 +19,9 @@ import{
   createDraft,
   addPlayer,
   countPlayers,
-  getCardsGame
+  getCardsGame,
+  getPlayerCards,
+  updatePlayer,
 } from './src/models/GameModel.js'
 const app = express()
 const port = 8081
@@ -189,6 +191,16 @@ app.get('/cards', (req, res) => {
     }
   })
 })
+app.post('/cards/getCard', (req,res)=>{
+  const {id}=req.body
+  getCard({id}, (err,results) =>{
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(results)
+    }
+  })
+})
 app.post('/cards/addCard', (req,res) =>{
   const {CardDefId, series, Img} =req.body
   setCard({CardDefId, series, Img}, (err, results) => {
@@ -346,5 +358,29 @@ app.post('/games/addPlayer', (req,res) =>{
       })
     }
   }) 
+})
+app.post('/games/getPlayerCards', (req,res) =>{
+  const {nombrePartida,fillSobre,fillJugador}=req.body
+  var cardsToSplit=''
+  var cardsOthers=[]
+      getPlayerCards({nombrePartida,fillSobre,fillJugador}, (err,results) =>{
+        if (err) {
+          res.send(err)
+        } else {
+          cardsToSplit=Object.values(results[0])[0]
+          cardsOthers=cardsToSplit.split(',')
+          res.send(cardsOthers)
+        }
+      })
+})
+app.put('/games/updatePlayer', (req,res) =>{
+  const {nombrePartida,fillSobre,fillJugador,updatedCards}=req.body
+  updatePlayer({nombrePartida,fillSobre,fillJugador,updatedCards}, (err,results) =>{
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(true)
+    }
+  })
 })
 

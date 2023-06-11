@@ -17,52 +17,31 @@
       <template #title>
         <h1>DRAFT {{nombrePartida}}</h1>
       </template>
-      <template #msg>
-        <div class="v-draftGame__msg" v-if="this.players<=4">
+      <template v-if="this.players<4" #msg>
+        <div class="v-draftGame__msg">
             <h2>Bienvenid@ a la partida de {{ nombrePartida }}, eres el jugador {{ jugador }}</h2>
             <h3>Esperando jugadores {{ players }}/4</h3>
         </div>
       </template>
-      <!-- <template #button>
-        <c-button
-          v-if="this.selladoCards.length !== 0"
-          @click="nextSobre"
-          innerText="SIGUIENTE"
-        ></c-button>
-        <c-button v-else @click="getCode" innerText="CÓDIGO DEL MAZO"></c-button>
+      <template #button>
+        <c-button v-if="this.pick==19" @click="getCode" innerText="CÓDIGO DEL MAZO"></c-button>
         <h2>{{ msg }}</h2>
-      </template> -->
-      <!-- <template #cards>
-        <div v-if="this.selladoCards.length !== 0">
-          <h1>Sobre: {{ this.sobre }}/3</h1>
+      </template>
+      <template v-if="this.players==4" #cards>
+        <div v-if="this.pick<19">
+          <h1>Pick: {{this.pick}}/18  Sobre: {{ this.sobre }}/3</h1>
           <c-cards-image
-            :src="this.selladoCards.at(-1).Img"
-            :alt="this.selladoCards.at(-1).CardDefId"
-          />
-          <c-cards-image
-            :src="this.selladoCards.at(-2).Img"
-            :alt="this.selladoCards.at(-2).CardDefId"
-          />
-          <c-cards-image
-            :src="this.selladoCards.at(-3).Img"
-            :alt="this.selladoCards.at(-3).CardDefId"
-          />
-          <c-cards-image
-            :src="this.selladoCards.at(-4).Img"
-            :alt="this.selladoCards.at(-4).CardDefId"
-          />
-          <c-cards-image
-            :src="this.selladoCards.at(-5).Img"
-            :alt="this.selladoCards.at(-5).CardDefId"
-          />
-          <c-cards-image
-            :src="this.selladoCards.at(-6).Img"
-            :alt="this.selladoCards.at(-6).CardDefId"
+            v-for="card in cards"
+            :key="card.CardDefId"
+            :src="card.Img"
+            :alt="card.CardDefId"
+            @click="pickCard($event)"
+            class="notHave"
           />
         </div>
         <div v-else>
           <c-cards-image
-            v-for="card in selladoDeck"
+            v-for="card in draftMazoFinal"
             :key="card.CardDefId"
             :src="card.Img"
             :alt="card.CardDefId"
@@ -71,7 +50,7 @@
             class="notHave"
           />
         </div>
-      </template> -->
+      </template>
     </l-game>
 </template>
 
@@ -83,7 +62,8 @@ import CIcon from '../components/c-icon.vue'
 import CButton from '../components/c-button.vue'
 import CCardsImage from '../components/c-cards-image.vue'
 import { userStore } from '../stores/user'
-import {gamesStore} from '../stores/games'
+import { gamesStore } from '../stores/games'
+import { cardsStore } from '../stores/cards'
 
 export default {
     components: {
@@ -98,6 +78,20 @@ export default {
         return{
             players:1,
             timerCheck:null,
+            timerTurn:null,
+            timerWait:null,
+            pick:1,
+            sobre:1,
+            cards:[],
+            draftMazo:[],
+            draftMazoFinal:[],
+            playerCards:[],
+            fillSobre:'',
+            fillJugador:'',
+            msg: '',
+            id:'',
+            idPicked:'',
+            updatedCards:'',
         }
     },
     props: {
@@ -117,6 +111,17 @@ export default {
             this.players=Object.values(numPlayers[0])[0]
             if(this.players==4){
                 clearInterval(this.timerCheck)
+                this.timerTurn = setInterval(() => {
+                    this.updateDatabase()
+                  if(this.pick<19){
+                    this.fillPlayerCards()
+                    this.fillCards()
+                  } else{
+                    console.log(this.draftMazo)
+                    clearInterval(this.timerTurn)
+                    this.getMazoFinal()
+                  }              
+                }, 7000)
             }
         },
         async loadUser() {
@@ -132,7 +137,391 @@ export default {
             } else {
                 this.sendError()
             }
+        },
+        pickCard(event) {
+          if (event) {
+            if (event.target.classList.contains('notHave')) {
+              event.target.classList.remove('notHave')
+              this.idPicked=event.target.alt
+              console.log(this.idPicked)
+            } else {
+              event.target.classList.add('notHave')
+            }
+          }
+        },
+        changeColor(event) {
+          if (event) {
+            if (event.target.classList.contains('notHave')) {
+              event.target.classList.remove('notHave')
+            } else {
+              event.target.classList.add('notHave')
+            }
+          }
+        },
+        getCode() {
+          var deck = []
+          var allCards = document.getElementsByClassName('c-cards-image')
+          for (let i = 0; i < allCards.length; i++) {
+            if (!allCards[i].classList.contains('notHave')) {
+              var myObj = {
+                'CardDefId': allCards[i].getAttribute('alt'),
+                'Img': allCards[i].getAttribute('src')
+              }
+              deck.push(myObj)
+            }
+          }
+          console.log(deck)
+          if (deck.length === 12) {
+            let link =
+              "{'Name':'test','Cards':[{'CardDefId':'" +
+              deck[0].CardDefId +
+              "'},{'CardDefId':'" +
+              deck[1].CardDefId +
+              "'},{'CardDefId':'" +
+              deck[2].CardDefId +
+              "'},{'CardDefId':'" +
+              deck[3].CardDefId +
+              "'},{'CardDefId':'" +
+              deck[4].CardDefId +
+              "'},{'CardDefId':'" +
+              deck[5].CardDefId +
+              "'},{'CardDefId':'" +
+              deck[6].CardDefId +
+              "'},{'CardDefId':'" +
+              deck[7].CardDefId +
+              "'},{'CardDefId':'" +
+              deck[8].CardDefId +
+              "'},{'CardDefId':'" +
+              deck[9].CardDefId +
+              "'},{'CardDefId':'" +
+              deck[10].CardDefId +
+              "'},{'CardDefId':'" +
+              deck[11].CardDefId +
+              "'}]}"
+            this.codigoMazo = window.btoa(link)
+            navigator.clipboard.writeText(this.codigoMazo)
+            this.msg = 'Código copiado'
+            console.log(this.codigoMazo)
+          } else {
+            this.msg = 'El mazo debe contener 12 cartas'
+          }
+        },
+        async updateDatabase(){
+          if(this.playerCards.indexOf(this.idPicked)!=-1){
+            this.playerCards.splice(this.playerCards.indexOf(this.idPicked),1)
+            this.draftMazo.push(this.idPicked)
+            console.log(this.playerCards, 'después de splice')
+            this.updatedCards=this.playerCards.toString()
+            var {nombrePartida,fillSobre,fillJugador,updatedCards}=this
+            console.log({nombrePartida,fillSobre,fillJugador,updatedCards}, 'estos son los args')
+            const updatePlayer=await gamesStore().updatePlayer({nombrePartida,fillSobre,fillJugador,updatedCards})
+            this.pick++
+            this.timerWait = setInterval(() => {
+              clearInterval(this.timerWait)
+            }, 5000)
+          }
+        },
+        async fillPlayerCards(){
+          switch(this.pick){
+            case 1: case 5:
+              if(this.jugador==1){
+                this.fillSobre='sobre1'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==2){
+                this.fillSobre='sobre1'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==3){
+                this.fillSobre='sobre1'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else{
+                this.fillSobre='sobre1'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }
+              break;
+            case 2: case 6:
+              if(this.jugador==1){
+                this.fillSobre='sobre1'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==2){
+                this.fillSobre='sobre1'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==3){
+                this.fillSobre='sobre1'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else{
+                this.fillSobre='sobre1'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }
+              break;
+            case 3:
+              if(this.jugador==1){
+                this.fillSobre='sobre1'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==2){
+                this.fillSobre='sobre1'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==3){
+                this.fillSobre='sobre1'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else{
+                this.fillSobre='sobre1'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }
+              break;
+            case 4:
+              if(this.jugador==1){
+                this.fillSobre='sobre1'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==2){
+                this.fillSobre='sobre1'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==3){
+                this.fillSobre='sobre1'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else{
+                this.fillSobre='sobre1'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }
+              break;
+            case 7: case 11:
+              if(this.jugador==1){
+                this.fillSobre='sobre2'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==2){
+                this.fillSobre='sobre2'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==3){
+                this.fillSobre='sobre2'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else{
+                this.fillSobre='sobre2'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }
+              break;
+            case 8: case 12:
+              if(this.jugador==1){
+                this.fillSobre='sobre2'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==2){
+                this.fillSobre='sobre2'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==3){
+                this.fillSobre='sobre2'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else{
+                this.fillSobre='sobre2'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }
+              break;
+            case 9:
+              if(this.jugador==1){
+                this.fillSobre='sobre2'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==2){
+                this.fillSobre='sobre2'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==3){
+                this.fillSobre='sobre2'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else{
+                this.fillSobre='sobre2'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }
+              break;
+            case 10:
+              if(this.jugador==1){
+                this.fillSobre='sobre2'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==2){
+                this.fillSobre='sobre2'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==3){
+                this.fillSobre='sobre2'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else{
+                this.fillSobre='sobre2'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }
+              break;
+            case 13: case 17:
+              if(this.jugador==1){
+                this.fillSobre='sobre3'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==2){
+                this.fillSobre='sobre3'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==3){
+                this.fillSobre='sobre3'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else{
+                this.fillSobre='sobre3'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }
+              break;
+            case 14: case 18:
+              if(this.jugador==1){
+                this.fillSobre='sobre3'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==2){
+                this.fillSobre='sobre3'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==3){
+                this.fillSobre='sobre3'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else{
+                this.fillSobre='sobre3'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }
+              break;
+            case 15:
+              if(this.jugador==1){
+                this.fillSobre='sobre3'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==2){
+                this.fillSobre='sobre3'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==3){
+                this.fillSobre='sobre3'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else{
+                this.fillSobre='sobre3'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }
+              break;
+            case 16:
+              if(this.jugador==1){
+                this.fillSobre='sobre3'
+                this.fillJugador='2'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==2){
+                this.fillSobre='sobre3'
+                this.fillJugador='3'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else if(this.jugador==3){
+                this.fillSobre='sobre3'
+                this.fillJugador='4'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }else{
+                this.fillSobre='sobre3'
+                this.fillJugador='1'
+                var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
+              }
+              break;
+            default: console.log('estoy en default')
+          }
+          console.log(this.playerCards,'esto es playerCards')
+        },
+        async fillCards(){
+          var {id}=this
+          this.cards=[]
+          for(var i=0;i<this.playerCards.length;i++){
+            id=this.playerCards[i]
+            var card=await cardsStore().getCard({id})
+            this.cards.push(card[0])
+          }
+        },
+        async getMazoFinal(){
+          var {id}=this
+          this.draftMazoFinal=[]
+          for(var i=0;i<this.draftMazo.length;i++){
+            id=this.draftMazo[i]
+            var card=await cardsStore().getCard({id})
+            this.draftMazoFinal.push(card[0])
+          }
         }
+
     },
     created() {
         this.loadUser()

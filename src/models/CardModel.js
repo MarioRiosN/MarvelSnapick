@@ -11,13 +11,13 @@ export const getCards = (result) => {
   })
 }
 
-export const getCard = (id, result) => {
-  db.query('SELECT * FROM cards WHERE CardDefId = ?', id, (err, results) => {
+export const getCard = ({id}, result) => {
+  db.query('SELECT * FROM cards WHERE CardDefId = ?', [id], (err, res) => {
     if (err) {
       console.log(err)
       result(err, null)
     } else {
-      result(null, results[0])
+      result(null, res)
     }
   })
 }
