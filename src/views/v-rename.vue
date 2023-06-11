@@ -76,12 +76,6 @@ export default {
         this.errorVisibility = false
       }, 5000)
     }
-    /* showPassword(){
-          this.type='password';
-          if(this.type==='password'){
-            this.type='text';
-          }
-        } */
   },
   created() {
     this.loadUser()

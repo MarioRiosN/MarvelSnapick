@@ -135,7 +135,6 @@ export default {
             if (event.target.classList.contains('notHave')) {
               event.target.classList.remove('notHave')
               this.idPicked=event.target.alt
-              console.log(this.idPicked)
             } else {
               event.target.classList.add('notHave')
             }
@@ -162,7 +161,6 @@ export default {
               deck.push(myObj)
             }
           }
-          console.log(deck)
           if (deck.length === 12) {
             let link =
               "{'Name':'test','Cards':[{'CardDefId':'" +
@@ -193,7 +191,6 @@ export default {
             this.codigoMazo = window.btoa(link)
             navigator.clipboard.writeText(this.codigoMazo)
             this.msg = 'Código copiado'
-            console.log(this.codigoMazo)
           } else {
             this.msg = 'El mazo debe contener 12 cartas'
           }
@@ -204,7 +201,6 @@ export default {
               await this.fillPlayerCards()
               await this.fillCards()
             } else{
-              console.log(this.draftMazo)
               clearInterval(this.timerTurn)
               this.getMazoFinal()
             }             
@@ -213,10 +209,8 @@ export default {
           if(this.playerCards.indexOf(this.idPicked)!=-1){
             this.playerCards.splice(this.playerCards.indexOf(this.idPicked),1)
             this.draftMazo.push(this.idPicked)
-            console.log(this.playerCards, 'después de splice')
             this.updatedCards=this.playerCards.toString()
             var {nombrePartida,fillSobre,fillJugador,updatedCards}=this
-            console.log({nombrePartida,fillSobre,fillJugador,updatedCards}, 'estos son los args')
             const updatePlayer=await gamesStore().updatePlayer({nombrePartida,fillSobre,fillJugador,updatedCards})
             this.pick++
             if(this.pick<7){
@@ -860,9 +854,7 @@ export default {
                 }
               }
               break;
-            default: console.log('estoy en default')
           }
-          console.log(this.playerCards,'esto es playerCards')
         },
         async fillCards(){
           var {id}=this

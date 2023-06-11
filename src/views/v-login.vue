@@ -62,14 +62,6 @@ export default {
     }
   },
   methods: {
-    /* checkLogin() {
-      if (this.username === 'Álvaro' && this.password === '1234') {
-        this.success = true;
-        this.errorVisibility = false;
-      } else {
-        this.sendError();
-      }
-    }, */
     async doLogin() {
       const { username, password } = this
 

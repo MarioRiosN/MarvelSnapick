@@ -108,7 +108,6 @@ app.post('/user/register', (req, res) => {
 })
 
 app.put('/user/rename', (req, res) => {
-  console.log('estoy en el mock rename')
   const { userLogged, oldUsername, newUsername } = req.body
   if (oldUsername === userLogged) {
     //busca en el array obtenido de la base de datos el objeto cuyo username coincida con oldUsername y lo cambia a newUsername
@@ -155,13 +154,11 @@ app.get('/user/users', (req, res) => {
 })
 app.put('/user/rerol', (req,res)=>{
   var { username, rol } = req.body
-  console.log(rol, 'rol actual')
   if(rol==='admin'){
     rol='user'
   } else{
     rol='admin'
   }
-  console.log(rol,'rol cambiado')
   updateRol({username,rol},(err,results)=>{
     if (err) {
       res.send(err)
@@ -299,7 +296,6 @@ app.post('/games/countPlayers', (req,res) =>{
 })
 app.post('/games/addPlayer', (req,res) =>{
   const {nombrePartida, jugador}=req.body
-  console.log({nombrePartida,jugador})
   var cards=[]
   var cardsToSplit=''
   var cardsOthers=[]

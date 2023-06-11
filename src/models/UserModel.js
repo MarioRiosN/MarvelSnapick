@@ -10,18 +10,6 @@ export const getUsers = (result) => {
   })
 }
 
-/* export const getUsersAsAdmin = (result) => {
-  db.query('SELECT * FROM users WHERE rol = "user"', (err, res) => {
-    if (err) {
-      console.log(err)
-      result(err, null)
-    } else {
-      console.log(res)
-      result(null, res)
-    }
-  })
-} */
-
 export const setUser = ({ username, password }, result) => {
   db.query('INSERT INTO users SET? ', [{ username, password }], (err, res) => {
     if (err) {

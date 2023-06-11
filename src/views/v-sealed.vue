@@ -116,7 +116,6 @@ export default {
         for (let i = 0; i < 18; i++) {
           this.selladoDeck[i].have = 'false'
         }
-        console.log(this.selladoDeck)
       } catch (e) {
         console.log(e)
         this.error = true
@@ -144,7 +143,6 @@ export default {
           deck.push(myObj)
         }
       }
-      console.log(deck)
       if (deck.length === 12) {
         let link =
           "{'Name':'test','Cards':[{'CardDefId':'" +
@@ -175,7 +173,6 @@ export default {
         this.codigoMazo = window.btoa(link)
         navigator.clipboard.writeText(this.codigoMazo)
         this.msg = 'Código copiado'
-        console.log(this.codigoMazo)
       } else {
         this.msg = 'El mazo debe contener 12 cartas'
       }

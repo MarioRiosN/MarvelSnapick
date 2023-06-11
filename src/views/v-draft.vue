@@ -91,8 +91,6 @@ export default {
             const createDraft = await gamesStore().createDraft({userLogged})
             const idPlayer = await gamesStore().addFirstPlayer({userLogged})
             this.numJugador=1
-            console.log('jugador ',this.numJugador,'nombre Partida ',this.userLogged)
-            console.log(createDraft,idPlayer)
             if(idPlayer && createDraft){
               this.$router.push({
               name: 'draftGame',
@@ -108,7 +106,6 @@ export default {
       const numPlayers = await gamesStore().countPlayers({nombrePartida})
       if(numPlayers[0]!== undefined && Object.values(numPlayers[0])[0]<=3){
         const jugador=Object.values(numPlayers[0])[0]+1
-        console.log(jugador, 'esto es jugador, debería ser 2 o 3 o 4')
         try{
             const addPlayer = await gamesStore().addPlayer({nombrePartida,jugador})
             if(addPlayer){
