@@ -235,6 +235,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=6;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -242,6 +243,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=6;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -249,6 +251,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=6;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -256,6 +259,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=6;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -266,6 +270,8 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCa
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})rds({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -273,6 +279,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -280,6 +287,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -287,6 +295,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -297,6 +306,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=4;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -304,6 +314,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=4;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -311,6 +322,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=4;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -318,6 +330,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=4;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -328,6 +341,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=3;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -335,6 +349,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=3;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -342,6 +357,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=3;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -349,6 +365,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=3;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -359,6 +376,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=2;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -366,6 +384,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=2;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -373,6 +392,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=2;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -380,6 +400,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=2;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -390,6 +411,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=1;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -397,6 +419,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=1;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -404,6 +427,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=1;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -411,6 +435,7 @@ export default {
                 this.fillSobre='sobre1'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=1;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -421,6 +446,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=6;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -428,6 +454,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=6;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -435,6 +462,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=6;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -442,6 +470,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=6;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -452,6 +481,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -459,6 +489,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -466,6 +497,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -473,6 +505,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -483,6 +516,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=4;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -490,6 +524,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=4;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -497,6 +532,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=4;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -504,6 +540,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=4;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -514,6 +551,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=3;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -521,6 +559,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=3;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -528,6 +567,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=3;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -535,6 +575,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=3;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -545,6 +586,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=2;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -552,6 +594,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=2;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -559,6 +602,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=2;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -566,6 +610,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=2;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -576,6 +621,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=1;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -583,6 +629,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=1;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -590,6 +637,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=1;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -597,6 +645,7 @@ export default {
                 this.fillSobre='sobre2'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=1;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -607,6 +656,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=6;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -614,6 +664,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=6;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -621,6 +672,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=6;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -628,6 +680,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=6;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -638,6 +691,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -645,6 +699,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -652,6 +707,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -659,6 +715,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=5;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -669,6 +726,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=4;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -676,6 +734,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=4;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -683,6 +742,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=4;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -690,6 +750,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=4;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -700,6 +761,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=3;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -707,6 +769,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=3;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -714,6 +777,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=3;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -721,6 +785,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=3;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -731,6 +796,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=2;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -738,6 +804,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=2;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -745,6 +812,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=2;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -752,6 +820,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=2;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -762,6 +831,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='4'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=1;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -769,6 +839,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='1'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=1;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -776,6 +847,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='2'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=1;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
@@ -783,6 +855,7 @@ export default {
                 this.fillSobre='sobre3'
                 this.fillJugador='3'
                 var {nombrePartida,fillSobre, fillJugador}=this
+                this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 for(;this.playerCards.length!=1;){
                   this.playerCards=await gamesStore().getPlayerCards({nombrePartida,fillSobre,fillJugador})
                 }
