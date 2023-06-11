@@ -51,7 +51,7 @@ export default {
   font-weight: bold;
 }
 
-.l-game__msg{
+.l-game__msg {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -52,18 +52,14 @@ export const updatePassword = ({ oldPassword, newPassword }, result) => {
 }
 
 export const updateRol = ({ username, rol }, result) => {
-  db.query(
-    'UPDATE users SET rol = ? WHERE username= ?',
-    [rol, username],
-    (err, res) => {
-      if (err) {
-        console.log(err)
-        result(err, null)
-      } else {
-        result(null, res)
-      }
+  db.query('UPDATE users SET rol = ? WHERE username= ?', [rol, username], (err, res) => {
+    if (err) {
+      console.log(err)
+      result(err, null)
+    } else {
+      result(null, res)
     }
-  )
+  })
 }
 
 export const deleteUser = ({ username }, result) => {

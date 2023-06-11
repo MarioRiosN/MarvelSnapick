@@ -13,7 +13,7 @@ export const userStore = defineStore('user', {
       const url = '/user/users'
       return apiStore()
         .doRequest({ url, method })
-        .then(res => {
+        .then((res) => {
           return res
         })
         .catch((err) => {
@@ -54,7 +54,7 @@ export const userStore = defineStore('user', {
         })
     },
 
-    async rename({userLogged, oldUsername, newUsername }) {
+    async rename({ userLogged, oldUsername, newUsername }) {
       const method = 'PUT'
       const url = '/user/rename'
       const payload = { userLogged, oldUsername, newUsername }
@@ -70,10 +70,10 @@ export const userStore = defineStore('user', {
         })
     },
 
-    async repassword({userLogged, oldPassword, newPassword }) {
+    async repassword({ userLogged, oldPassword, newPassword }) {
       const method = 'PUT'
       const url = '/user/repassword'
-      const payload = {userLogged,oldPassword, newPassword }
+      const payload = { userLogged, oldPassword, newPassword }
       return apiStore()
         .doRequest({ method, url, payload })
         .then((res) => {
@@ -85,16 +85,16 @@ export const userStore = defineStore('user', {
         })
     },
 
-    async rerol({username,rol}){
-      const method='PUT'
+    async rerol({ username, rol }) {
+      const method = 'PUT'
       const url = '/user/rerol'
-      const payload = {username,rol}
+      const payload = { username, rol }
       return apiStore()
-        .doRequest({method,url,payload})
+        .doRequest({ method, url, payload })
         .then((res) => {
           return res
         })
-        .catch((error) =>{
+        .catch((error) => {
           console.log(error)
           return false
         })

@@ -24,8 +24,12 @@
           {{ user.rol }}
         </span>
         <div class="v-admin__button" style="width: 40%">
-          <c-button innerText="Editar rol" @click="editRol(user.username,user.rol)"></c-button>
-          <c-button v-if="user.rol==='user'" innerText="Borrar" @click="deleteUser(user.username)"></c-button>
+          <c-button innerText="Editar rol" @click="editRol(user.username, user.rol)"></c-button>
+          <c-button
+            v-if="user.rol === 'user'"
+            innerText="Borrar"
+            @click="deleteUser(user.username)"
+          ></c-button>
         </div>
       </div>
     </template>
@@ -35,16 +39,20 @@
         <h3 v-if="msgCardsVisibility">{{ msgCards }}</h3>
       </div>
       <div class="v-admin--editable">
-        <c-text-field  placeholder="CardDefId" v-model="CardDefId" />
-        <c-text-field  placeholder="series" v-model="series" />
-        <c-text-field  placeholder="Img" v-model="Img" />
+        <c-text-field placeholder="CardDefId" v-model="CardDefId" />
+        <c-text-field placeholder="series" v-model="series" />
+        <c-text-field placeholder="Img" v-model="Img" />
         <c-button innerText="Añadir Carta" @click="addCard()"></c-button>
       </div>
       <div v-for="card in cards" class="v-admin--elements">
         <span style="width: 30%">
           {{ card.CardDefId }}
         </span>
-        <c-text-field :placeholder=card.series.toString() style="width: 30%" v-model="newSeries"></c-text-field>
+        <c-text-field
+          :placeholder="card.series.toString()"
+          style="width: 30%"
+          v-model="newSeries"
+        ></c-text-field>
         <div class="v-admin__button" style="width: 40%">
           <c-button innerText="Editar Series" @click="editSeries(card.CardDefId)"></c-button>
           <c-button innerText="Borrar" @click="deleteCard(card.CardDefId)"></c-button>
@@ -76,16 +84,16 @@ export default {
   },
   data() {
     return {
-      newSeries:'',
+      newSeries: '',
       users: [],
       cards: [],
       CardDefId: '',
-      series:'',
+      series: '',
       Img: '',
-      msgCardsVisibility:false,
-      msgUsersVisibility:false,
-      msgCards:'',
-      msgUsers:''
+      msgCardsVisibility: false,
+      msgUsersVisibility: false,
+      msgCards: '',
+      msgUsers: ''
     }
   },
   methods: {
@@ -96,8 +104,8 @@ export default {
       } catch (e) {
         console.log(e)
       }
-      this.msgUsers=msg
-      this.msgUsersVisibility=true
+      this.msgUsers = msg
+      this.msgUsersVisibility = true
       setTimeout(() => {
         this.msgUsersVisibility = false
       }, 5000)
@@ -113,16 +121,16 @@ export default {
         console.log(e)
         this.error = true
       }
-      this.msgCards=msg
-      this.msgCardsVisibility=true
+      this.msgCards = msg
+      this.msgCardsVisibility = true
       setTimeout(() => {
         this.msgCardsVisibility = false
       }, 5000)
     },
-    async editRol(username,rol){
-      try{
-        const editRol = await userStore().rerol({username,rol})
-      }catch(e){
+    async editRol(username, rol) {
+      try {
+        const editRol = await userStore().rerol({ username, rol })
+      } catch (e) {
         console.log(e)
       }
       this.loadUsers('Rol cambiado correctamente')
@@ -135,11 +143,11 @@ export default {
       }
       this.loadUsers('Usuario eliminado correctamente')
     },
-    async addCard(){
-      try{
-        const {CardDefId, series, Img}=this
-        const addCard= await cardsStore().addCard({CardDefId, series, Img})
-      }catch (error){
+    async addCard() {
+      try {
+        const { CardDefId, series, Img } = this
+        const addCard = await cardsStore().addCard({ CardDefId, series, Img })
+      } catch (error) {
         console.log(error)
       }
       this.loadCards('Carta añadida correctamente')
@@ -152,11 +160,11 @@ export default {
       }
       this.loadCards('Carta eliminada correctamente')
     },
-    async editSeries(CardDefId){
-      const {newSeries} =this
-      try{
-        const editSeries = await cardsStore().editSeries({CardDefId, newSeries})
-      } catch(e){
+    async editSeries(CardDefId) {
+      const { newSeries } = this
+      try {
+        const editSeries = await cardsStore().editSeries({ CardDefId, newSeries })
+      } catch (e) {
         console.log(e)
       }
       this.loadCards('Serie editada correctamente')
@@ -179,7 +187,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-admin__title{
+.v-admin__title {
   display: flex;
   flex-direction: row;
   gap: 50px;

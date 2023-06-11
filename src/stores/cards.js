@@ -22,19 +22,19 @@ export const cardsStore = defineStore('cards', {
         })
     },
 
-    async addCard({CardDefId, series, Img}){
-      const method ='POST'
-      const url='/cards/addCard'
-      const payload={CardDefId, series, Img}
+    async addCard({ CardDefId, series, Img }) {
+      const method = 'POST'
+      const url = '/cards/addCard'
+      const payload = { CardDefId, series, Img }
       return apiStore()
-      .doRequest({ method, url, payload })
-      .then((res) => {
-        return res
-      })
-      .catch((error) => {
-        console.log(error)
-        return false
-      })
+        .doRequest({ method, url, payload })
+        .then((res) => {
+          return res
+        })
+        .catch((error) => {
+          console.log(error)
+          return false
+        })
     },
 
     async deleteCard({ CardDefId }) {
@@ -67,10 +67,10 @@ export const cardsStore = defineStore('cards', {
         })
     },
 
-    async getCard({id}){
+    async getCard({ id }) {
       const method = 'POST'
       const url = '/cards/getCard'
-      const payload = {id}
+      const payload = { id }
       return apiStore()
         .doRequest({ method, url, payload })
         .then((res) => {
@@ -80,7 +80,6 @@ export const cardsStore = defineStore('cards', {
           console.log(error)
           return false
         })
-    },
-
+    }
   }
 })

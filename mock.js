@@ -1,12 +1,6 @@
 import express from 'express'
 import corss from 'cors'
-import { 
-  getCards,
-  getCard,
-  setCard,
-  deleteCard,
-  updateSeries,
-} from './src/models/CardModel.js'
+import { getCards, getCard, setCard, deleteCard, updateSeries } from './src/models/CardModel.js'
 import {
   getUsers,
   setUser,
@@ -15,7 +9,7 @@ import {
   updateRol,
   deleteUser
 } from './src/models/UserModel.js'
-import{
+import {
   createDraft,
   addPlayer,
   countPlayers,
@@ -152,14 +146,14 @@ app.get('/user/users', (req, res) => {
     }
   })
 })
-app.put('/user/rerol', (req,res)=>{
+app.put('/user/rerol', (req, res) => {
   var { username, rol } = req.body
-  if(rol==='admin'){
-    rol='user'
-  } else{
-    rol='admin'
+  if (rol === 'admin') {
+    rol = 'user'
+  } else {
+    rol = 'admin'
   }
-  updateRol({username,rol},(err,results)=>{
+  updateRol({ username, rol }, (err, results) => {
     if (err) {
       res.send(err)
     } else {
@@ -170,15 +164,14 @@ app.put('/user/rerol', (req,res)=>{
 
 app.delete('/user/delete', (req, res) => {
   const { username } = req.body
-    deleteUser({ username }, (err, results) => {
-      if (err) {
-        res.send(err)
-      } else {
-        res.send(true)
-      }
+  deleteUser({ username }, (err, results) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(true)
+    }
   })
 })
-
 
 app.get('/cards', (req, res) => {
   getCards((err, results) => {
@@ -189,9 +182,9 @@ app.get('/cards', (req, res) => {
     }
   })
 })
-app.post('/cards/getCard', (req,res)=>{
-  const {id}=req.body
-  getCard({id}, (err,results) =>{
+app.post('/cards/getCard', (req, res) => {
+  const { id } = req.body
+  getCard({ id }, (err, results) => {
     if (err) {
       res.send(err)
     } else {
@@ -199,9 +192,9 @@ app.post('/cards/getCard', (req,res)=>{
     }
   })
 })
-app.post('/cards/addCard', (req,res) =>{
-  const {CardDefId, series, Img} =req.body
-  setCard({CardDefId, series, Img}, (err, results) => {
+app.post('/cards/addCard', (req, res) => {
+  const { CardDefId, series, Img } = req.body
+  setCard({ CardDefId, series, Img }, (err, results) => {
     if (err) {
       res.send(err)
     } else {
@@ -219,9 +212,9 @@ app.delete('/cards/deleteCard', (req, res) => {
     }
   })
 })
-app.put('/cards/editSeries', (req,res) =>{
-  const {CardDefId, newSeries} = req.body
-  updateSeries({CardDefId, newSeries}, (err,results) =>{
+app.put('/cards/editSeries', (req, res) => {
+  const { CardDefId, newSeries } = req.body
+  updateSeries({ CardDefId, newSeries }, (err, results) => {
     if (err) {
       res.send(err)
     } else {
@@ -230,10 +223,9 @@ app.put('/cards/editSeries', (req,res) =>{
   })
 })
 
-
-app.post('/games/createDraft', (req,res) =>{
-  const {userLogged}=req.body
-  createDraft({userLogged}, (err,results) =>{
+app.post('/games/createDraft', (req, res) => {
+  const { userLogged } = req.body
+  createDraft({ userLogged }, (err, results) => {
     if (err) {
       res.send(err)
     } else {
@@ -241,20 +233,20 @@ app.post('/games/createDraft', (req,res) =>{
     }
   })
 })
-app.post('/games/addFirstPlayer', (req,res) =>{
-  const {userLogged}=req.body
-  var cards=[]
-  var cardsPlayer=[]
-  var jugador=1
-  var sobre1=[]
-  var sobre2=[]
-  var sobre3=[]
-  const mazo =''
+app.post('/games/addFirstPlayer', (req, res) => {
+  const { userLogged } = req.body
+  var cards = []
+  var cardsPlayer = []
+  var jugador = 1
+  var sobre1 = []
+  var sobre2 = []
+  var sobre3 = []
+  const mazo = ''
   getCards((err, results) => {
     if (err) {
       res.send(err)
     } else {
-      for(i=0;i<results.length;i++){
+      for (i = 0; i < results.length; i++) {
         cards.push(results[i].CardDefId)
       }
       for (var i = cards.length - 1; i > 0; i--) {
@@ -271,10 +263,10 @@ app.post('/games/addFirstPlayer', (req,res) =>{
         sobre2.push(cardsPlayer.pop())
         sobre3.push(cardsPlayer.pop())
       }
-      sobre1=sobre1.toString()
-      sobre2=sobre2.toString()
-      sobre3=sobre3.toString()
-      addPlayer({userLogged,jugador,sobre1,sobre2,sobre3,mazo}, (err,results) =>{
+      sobre1 = sobre1.toString()
+      sobre2 = sobre2.toString()
+      sobre3 = sobre3.toString()
+      addPlayer({ userLogged, jugador, sobre1, sobre2, sobre3, mazo }, (err, results) => {
         if (err) {
           res.send(err)
         } else {
@@ -282,11 +274,11 @@ app.post('/games/addFirstPlayer', (req,res) =>{
         }
       })
     }
-  }) 
+  })
 })
-app.post('/games/countPlayers', (req,res) =>{
-  const {nombrePartida}=req.body
-  countPlayers({nombrePartida}, (err,results) =>{
+app.post('/games/countPlayers', (req, res) => {
+  const { nombrePartida } = req.body
+  countPlayers({ nombrePartida }, (err, results) => {
     if (err) {
       res.send(err)
     } else {
@@ -294,38 +286,71 @@ app.post('/games/countPlayers', (req,res) =>{
     }
   })
 })
-app.post('/games/addPlayer', (req,res) =>{
-  const {nombrePartida, jugador}=req.body
-  var cards=[]
-  var cardsToSplit=''
-  var cardsOthers=[]
-  var cardsPlayer=[]
-  var sobre1=[]
-  var sobre2=[]
-  var sobre3=[]
-  const mazo =''
-  var userLogged=nombrePartida
+app.post('/games/addPlayer', (req, res) => {
+  const { nombrePartida, jugador } = req.body
+  var cards = []
+  var cardsToSplit = ''
+  var cardsOthers = []
+  var cardsPlayer = []
+  var sobre1 = []
+  var sobre2 = []
+  var sobre3 = []
+  const mazo = ''
+  var userLogged = nombrePartida
   getCards((err, results) => {
     if (err) {
       res.send(err)
     } else {
-      for(var i=0;i<results.length;i++){
+      for (var i = 0; i < results.length; i++) {
         cards.push(results[i].CardDefId)
       }
-      getCardsGame({userLogged,jugador},(err,results) =>{
+      getCardsGame({ userLogged, jugador }, (err, results) => {
         if (err) {
           res.send(err)
         } else {
-          if(jugador===2){
-            cardsToSplit=Object.values(results[0])[0]+','+Object.values(results[0])[1]+','+Object.values(results[0])[2]
-            }else if(jugador==3){
-              cardsToSplit=Object.values(results[0])[0]+','+Object.values(results[0])[1]+','+Object.values(results[0])[2]+','+Object.values(results[1])[0]+','+Object.values(results[1])[1]+','+Object.values(results[1])[2]
-              }else{
-                cardsToSplit=Object.values(results[0])[0]+','+Object.values(results[0])[1]+','+Object.values(results[0])[2]+','+Object.values(results[1])[0]+','+Object.values(results[1])[1]+','+Object.values(results[1])[2]+','+Object.values(results[2])[0]+','+Object.values(results[2])[1]+','+Object.values(results[2])[2]
-              }
-          cardsOthers=cardsToSplit.split(',')
-          for(var i=0;i<cardsOthers.length;i++){
-              cards.splice(cards.indexOf(cardsOthers[i]),1)
+          if (jugador === 2) {
+            cardsToSplit =
+              Object.values(results[0])[0] +
+              ',' +
+              Object.values(results[0])[1] +
+              ',' +
+              Object.values(results[0])[2]
+          } else if (jugador == 3) {
+            cardsToSplit =
+              Object.values(results[0])[0] +
+              ',' +
+              Object.values(results[0])[1] +
+              ',' +
+              Object.values(results[0])[2] +
+              ',' +
+              Object.values(results[1])[0] +
+              ',' +
+              Object.values(results[1])[1] +
+              ',' +
+              Object.values(results[1])[2]
+          } else {
+            cardsToSplit =
+              Object.values(results[0])[0] +
+              ',' +
+              Object.values(results[0])[1] +
+              ',' +
+              Object.values(results[0])[2] +
+              ',' +
+              Object.values(results[1])[0] +
+              ',' +
+              Object.values(results[1])[1] +
+              ',' +
+              Object.values(results[1])[2] +
+              ',' +
+              Object.values(results[2])[0] +
+              ',' +
+              Object.values(results[2])[1] +
+              ',' +
+              Object.values(results[2])[2]
+          }
+          cardsOthers = cardsToSplit.split(',')
+          for (var i = 0; i < cardsOthers.length; i++) {
+            cards.splice(cards.indexOf(cardsOthers[i]), 1)
           }
           for (var i = cards.length - 1; i > 0; i--) {
             var j = Math.floor(Math.random() * (i + 1))
@@ -341,10 +366,10 @@ app.post('/games/addPlayer', (req,res) =>{
             sobre2.push(cardsPlayer.pop())
             sobre3.push(cardsPlayer.pop())
           }
-          sobre1=sobre1.toString()
-          sobre2=sobre2.toString()
-          sobre3=sobre3.toString()
-          addPlayer({userLogged,jugador,sobre1,sobre2,sobre3,mazo}, (err,results) =>{
+          sobre1 = sobre1.toString()
+          sobre2 = sobre2.toString()
+          sobre3 = sobre3.toString()
+          addPlayer({ userLogged, jugador, sobre1, sobre2, sobre3, mazo }, (err, results) => {
             if (err) {
               res.send(err)
             } else {
@@ -354,25 +379,25 @@ app.post('/games/addPlayer', (req,res) =>{
         }
       })
     }
-  }) 
+  })
 })
-app.post('/games/getPlayerCards', (req,res) =>{
-  const {nombrePartida,fillSobre,fillJugador}=req.body
-  var cardsToSplit=''
-  var cardsOthers=[]
-      getPlayerCards({nombrePartida,fillSobre,fillJugador}, (err,results) =>{
-        if (err) {
-          res.send(err)
-        } else {
-          cardsToSplit=Object.values(results[0])[0]
-          cardsOthers=cardsToSplit.split(',')
-          res.send(cardsOthers)
-        }
-      })
+app.post('/games/getPlayerCards', (req, res) => {
+  const { nombrePartida, fillSobre, fillJugador } = req.body
+  var cardsToSplit = ''
+  var cardsOthers = []
+  getPlayerCards({ nombrePartida, fillSobre, fillJugador }, (err, results) => {
+    if (err) {
+      res.send(err)
+    } else {
+      cardsToSplit = Object.values(results[0])[0]
+      cardsOthers = cardsToSplit.split(',')
+      res.send(cardsOthers)
+    }
+  })
 })
-app.put('/games/updatePlayer', (req,res) =>{
-  const {nombrePartida,fillSobre,fillJugador,updatedCards}=req.body
-  updatePlayer({nombrePartida,fillSobre,fillJugador,updatedCards}, (err,results) =>{
+app.put('/games/updatePlayer', (req, res) => {
+  const { nombrePartida, fillSobre, fillJugador, updatedCards } = req.body
+  updatePlayer({ nombrePartida, fillSobre, fillJugador, updatedCards }, (err, results) => {
     if (err) {
       res.send(err)
     } else {
@@ -381,9 +406,9 @@ app.put('/games/updatePlayer', (req,res) =>{
   })
 })
 
-app.delete('/games/dropTable', (req,res) =>{
-  const {nombrePartida}=req.body
-  dropTable({nombrePartida}, (err,results) =>{
+app.delete('/games/dropTable', (req, res) => {
+  const { nombrePartida } = req.body
+  dropTable({ nombrePartida }, (err, results) => {
     if (err) {
       res.send(err)
     } else {
@@ -391,4 +416,3 @@ app.delete('/games/dropTable', (req,res) =>{
     }
   })
 })
-

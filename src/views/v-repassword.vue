@@ -51,7 +51,7 @@ export default {
       try {
         const { userLogged, oldPassword, newPassword } = this
 
-        const doRepassword = await userStore().repassword({userLogged, oldPassword, newPassword })
+        const doRepassword = await userStore().repassword({ userLogged, oldPassword, newPassword })
 
         if (doRepassword) {
           this.$router.push({
@@ -74,7 +74,7 @@ export default {
       setTimeout(() => {
         this.errorVisibility = false
       }, 5000)
-    }  
+    }
   },
   created() {
     this.loadUser()

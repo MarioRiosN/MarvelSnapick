@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'login',
-      component: () => import('../views/v-login.vue'),
+      component: () => import('../views/v-login.vue')
     },
     {
       path: '/registro',
@@ -67,8 +67,8 @@ const router = createRouter({
       name: 'draftGame',
       component: () => import('../views/v-draftGame.vue'),
       props: (route) => ({
-        nombrePartida:route.params.nombrePartida,
-        jugador:route.params.jugador
+        nombrePartida: route.params.nombrePartida,
+        jugador: route.params.jugador
       })
     },
     {

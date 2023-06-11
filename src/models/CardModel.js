@@ -11,7 +11,7 @@ export const getCards = (result) => {
   })
 }
 
-export const getCard = ({id}, result) => {
+export const getCard = ({ id }, result) => {
   db.query('SELECT * FROM cards WHERE CardDefId = ?', [id], (err, res) => {
     if (err) {
       console.log(err)
@@ -22,8 +22,8 @@ export const getCard = ({id}, result) => {
   })
 }
 
-export const setCard = ({CardDefId, series, Img}, result) => {
-  db.query('INSERT INTO cards SET? ', [{CardDefId, series, Img}], (err, res) => {
+export const setCard = ({ CardDefId, series, Img }, result) => {
+  db.query('INSERT INTO cards SET? ', [{ CardDefId, series, Img }], (err, res) => {
     if (err) {
       console.log(err)
       result(err, null)
@@ -45,16 +45,12 @@ export const deleteCard = ({ CardDefId }, result) => {
 }
 
 export const updateSeries = ({ CardDefId, newSeries }, result) => {
-  db.query(
-    'UPDATE cards SET series = ? WHERE CardDefId= ?',
-    [newSeries, CardDefId],
-    (err, res) => {
-      if (err) {
-        console.log(err)
-        result(err, null)
-      } else {
-        result(null, res)
-      }
+  db.query('UPDATE cards SET series = ? WHERE CardDefId= ?', [newSeries, CardDefId], (err, res) => {
+    if (err) {
+      console.log(err)
+      result(err, null)
+    } else {
+      result(null, res)
     }
-  )
+  })
 }

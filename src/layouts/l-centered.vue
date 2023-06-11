@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .l-centered {
+.l-centered {
   display: flex;
   flex-direction: column;
   justify-content: center;
